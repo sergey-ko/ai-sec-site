@@ -1,0 +1,218 @@
+---
+import Base from '@fce/shared/layouts/Base.astro';
+import Nav from '@fce/shared/components/Nav.astro';
+import Card from '@fce/shared/components/Card.astro';
+import Button from '@fce/shared/components/Button.astro';
+import Footer from '@fce/shared/components/Footer.astro';
+import '../styles/theme.css';
+
+const navLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Open Source', href: '/open-source' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+];
+
+const footerLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+];
+---
+
+<Base
+  title="Book a Call \u2014 AI-Sec"
+  description="Book a 15-minute call to scope your security audit. No sales pitch \u2014 just guidance on securing your codebase."
+>
+  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+
+  <!-- Hero -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
+        Let's talk security.
+      </h1>
+      <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
+        Book a 15-minute call to discuss your codebase, your requirements, and which audit tier fits. No sales pitch &mdash; just security guidance from someone who builds production systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Split: Calendly + Info -->
+  <section class="py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-5 gap-12">
+      <!-- Calendly embed (60%) -->
+      <div class="md:col-span-3">
+        <Card>
+          <div class="text-center py-16">
+            <p class="text-[var(--text-muted)] mb-4">Calendly booking widget</p>
+            <div
+              class="calendly-inline-widget"
+              data-url="https://calendly.com/sergey-ko/ai-sec-intro"
+              style="min-width:320px;height:650px;"
+            ></div>
+            <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+          </div>
+        </Card>
+      </div>
+
+      <!-- Info (40%) -->
+      <div class="md:col-span-2 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold mb-6">What to expect:</h2>
+          <div class="space-y-6">
+            <div>
+              <h3 class="font-semibold flex items-start gap-2">
+                <span class="text-[var(--accent-primary)] font-mono">1.</span>
+                You tell us what you built
+              </h3>
+              <p class="text-sm text-[var(--text-secondary)] mt-1 ml-6 leading-relaxed">
+                Stack, scale, stage, and what's prompting the security question (compliance, enterprise deal, investor ask, or peace of mind).
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold flex items-start gap-2">
+                <span class="text-[var(--accent-primary)] font-mono">2.</span>
+                We recommend a path
+              </h3>
+              <p class="text-sm text-[var(--text-secondary)] mt-1 ml-6 leading-relaxed">
+                Quick scan, Startup Quick, Standard, or Enterprise &mdash; based on your actual needs, not our revenue targets.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold flex items-start gap-2">
+                <span class="text-[var(--accent-primary)] font-mono">3.</span>
+                You decide
+              </h3>
+              <p class="text-sm text-[var(--text-secondary)] mt-1 ml-6 leading-relaxed">
+                No pressure. If a free quick-scan answers your question, great. If you need a full audit, we'll scope it and send a proposal within 24 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-[var(--border)] pt-8">
+          <h3 class="font-semibold mb-2">Prefer email?</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Reach us at <a href="mailto:security@fce.global" class="text-[var(--accent-primary)] hover:underline">security@fce.global</a>. We respond within 24 hours on business days.
+          </p>
+        </div>
+
+        <div class="border-t border-[var(--border)] pt-8">
+          <h3 class="font-semibold mb-3">Connect:</h3>
+          <div class="space-y-2">
+            <a href="https://twitter.com/sergey_ko" class="block text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors">
+              Twitter &rarr;
+            </a>
+            <a href="https://github.com/sergey-ko" class="block text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors">
+              GitHub &rarr;
+            </a>
+            <a href="https://linkedin.com/in/sergey-ko" class="block text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors">
+              LinkedIn &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-3xl mx-auto px-6">
+      <Card>
+        <h2 class="text-2xl font-bold mb-8">Or send us a message.</h2>
+        <form id="contact-form" class="space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-sm font-medium text-[var(--text-secondary)] mb-1">Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+              />
+            </div>
+            <div>
+              <label for="contact-email" class="block text-sm font-medium text-[var(--text-secondary)] mb-1">Email *</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                class="w-full px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="contact-company" class="block text-sm font-medium text-[var(--text-secondary)] mb-1">Company</label>
+            <input
+              type="text"
+              id="contact-company"
+              name="company"
+              class="w-full px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+            />
+          </div>
+          <div>
+            <label for="need" class="block text-sm font-medium text-[var(--text-secondary)] mb-1">What do you need?</label>
+            <select
+              id="need"
+              name="need"
+              class="w-full px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-secondary)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+            >
+              <option value="">Select one...</option>
+              <option value="audit">Security audit for my app</option>
+              <option value="compliance">Compliance requirement (SOC 2, ISO, etc.)</option>
+              <option value="enterprise">Enterprise security assessment</option>
+              <option value="partnership">Partnership / integration inquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-[var(--text-secondary)] mb-1">Tell us more</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="w-full px-4 py-3 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors resize-y"
+              placeholder="Briefly describe your project, stack, and what prompted the security question."
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="px-8 py-3 rounded-lg bg-[var(--accent-primary)] text-[var(--accent-btn-text)] font-semibold text-lg hover:opacity-90 transition-opacity"
+          >
+            Send Message &rarr;
+          </button>
+          <p class="text-xs text-[var(--text-muted)]">
+            We'll respond within 24 hours. No spam, no mailing lists.
+          </p>
+        </form>
+        <div id="contact-success" class="hidden text-center py-8">
+          <div class="text-[var(--accent-primary)] text-4xl mb-4">&#10003;</div>
+          <h3 class="text-xl font-bold mb-2">Message sent!</h3>
+          <p class="text-[var(--text-secondary)] mb-6">
+            We'll get back to you within 24 hours. In the meantime, you can also grab a free quick-scan of your repo.
+          </p>
+          <Button href="/free-scan" variant="primary" size="md">Get Free Scan &rarr;</Button>
+        </div>
+      </Card>
+    </div>
+  </section>
+
+  <Footer productName="AI-Sec" links={footerLinks} />
+</Base>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const success = document.getElementById('contact-success');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // In production, POST to /api/contact
+    form.classList.add('hidden');
+    success?.classList.remove('hidden');
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  title: string;
+  cvss: string;
+  owasp: string;
+  cwe: string;
+  description: string;
+  fix: string;
+}
+
+const { severity, title, cvss, owasp, cwe, description, fix } = Astro.props;
+
+const severityColors: Record<string, string> = {
+  CRITICAL: 'border-[var(--color-error)] text-[var(--color-error)]',
+  HIGH: 'border-red-400 text-red-400',
+  MEDIUM: 'border-[var(--color-warning)] text-[var(--color-warning)]',
+  LOW: 'border-[var(--text-muted)] text-[var(--text-muted)]',
+};
+---
+
+<div class={`rounded-xl border bg-[var(--bg-secondary)] overflow-hidden ${severityColors[severity].split(' ')[0]}`}>
+  <div class={`px-6 py-3 border-b border-[var(--border)] ${severityColors[severity]}`}>
+    <span class="font-mono font-bold text-sm">{severity}</span>
+  </div>
+  <div class="p-6 space-y-4">
+    <h4 class="text-lg font-semibold text-[var(--text-primary)]">{title}</h4>
+    <div class="flex flex-wrap gap-4 text-xs font-mono text-[var(--text-muted)]">
+      <span>CVSS: {cvss}</span>
+      <span>OWASP: {owasp}</span>
+      <span>{cwe}</span>
+    </div>
+    <p class="text-sm text-[var(--text-secondary)] leading-relaxed">{description}</p>
+    <div class="pt-2 border-t border-[var(--border)]">
+      <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+        <span class="text-[var(--accent-primary)] font-medium">Fix:</span> {fix}
+      </p>
+    </div>
+  </div>
+</div>

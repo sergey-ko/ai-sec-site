@@ -1,0 +1,294 @@
+---
+import Base from '@fce/shared/layouts/Base.astro';
+import Nav from '@fce/shared/components/Nav.astro';
+import Badge from '@fce/shared/components/Badge.astro';
+import Card from '@fce/shared/components/Card.astro';
+import Terminal from '@fce/shared/components/Terminal.astro';
+import Button from '@fce/shared/components/Button.astro';
+import Footer from '@fce/shared/components/Footer.astro';
+import '../styles/theme.css';
+
+const navLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Open Source', href: '/open-source' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+];
+
+const footerLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+];
+
+const cliLines = [
+  '<span class="text-[var(--text-muted)]">$</span> npx ai-sec scan ./my-app',
+  '',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Scanning ./my-app...',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Analyzing 47 files across 3 modules...',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Running OWASP Top 10 checks...',
+  '',
+  '<span class="text-[var(--text-muted)]">── RESULTS ──────────────────────────────────</span>',
+  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  1</span>   Missing authentication on admin route',
+  '<span class="text-red-400 font-bold">  HIGH      3</span>   Insecure direct object references',
+  '<span class="text-[var(--color-warning)] font-bold">  MEDIUM    5</span>   Missing input validation',
+  '<span class="text-[var(--text-muted)] font-bold">  LOW       8</span>   Informational findings',
+  '',
+  '  Report saved: ./ai-sec-report.md',
+  '',
+  '<span class="text-[var(--text-muted)]">  Want the full ASVS L2 audit? Run: npx ai-sec scan --full</span>',
+];
+
+const ghActionLines = [
+  '<span class="text-[var(--text-muted)]"># .github/workflows/security.yml</span>',
+  'name: AI-Sec Security Scan',
+  'on: [pull_request]',
+  '',
+  'jobs:',
+  '  security:',
+  '    runs-on: ubuntu-latest',
+  '    steps:',
+  '      - uses: actions/checkout@v4',
+  '      - uses: fce-global/ai-sec-action@v1',
+  '        with:',
+  '          severity-threshold: high',
+  '          fail-on-findings: true',
+];
+
+const claudeSkillLines = [
+  '<span class="text-[var(--text-muted)]"># In your Claude Code session:</span>',
+  '<span class="text-[var(--text-muted)]">$</span> /ai-sec audit',
+  '',
+  '<span class="text-[var(--accent-primary)]">AI-Sec</span> Analyzing your project...',
+  '<span class="text-[var(--accent-primary)]">AI-Sec</span> Found 12 security findings:',
+  '',
+  '  <span class="text-[var(--color-error)]">CRITICAL</span> Password reset accepts any user ID (CWE-640)',
+  '  <span class="text-red-400">HIGH</span>     Session not invalidated on logout (CWE-613)',
+  '  <span class="text-[var(--color-warning)]">MEDIUM</span>   No rate limiting on /api/auth (CWE-307)',
+  '  ...',
+  '',
+  '<span class="text-[var(--accent-primary)]">AI-Sec</span> Full report written to ./ai-sec-report.md',
+];
+---
+
+<Base
+  title="Open-Source Security Tools \u2014 AI-Sec"
+  description="Free, open-source security analysis tools: Claude Code skill, GitHub Action, and CLI. Run AI-powered OWASP Top 10 scans on every PR."
+>
+  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+
+  <!-- Hero -->
+  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <Badge text="Free &amp; Open Source" class="mb-8" />
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight max-w-4xl mx-auto">
+        Security scanning<br />for everyone.
+      </h1>
+      <p class="text-lg sm:text-xl md:text-2xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
+        Run AI-powered OWASP Top 10 security scans in your IDE, in your CI/CD, or from the command line. Free and open-source. No account required.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+        <Button href="#cli" variant="primary" size="lg">Get Started &rarr;</Button>
+        <Button href="https://github.com/sergey-ko" variant="secondary" size="lg">View on GitHub</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Open-Source Gets You -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">What free tools find.</h2>
+      <p class="text-[var(--text-secondary)] text-center max-w-2xl mx-auto text-lg mb-16">
+        Our open-source tools find ~60% of what the full audit catches. Enough to be genuinely useful. The delta drives upgrades.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <Card>
+          <div class="text-[var(--accent-primary)] text-2xl mb-3">&#10003;</div>
+          <h3 class="text-lg font-semibold mb-2">OWASP Top 10 coverage</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Checks for the most critical web application security risks including injection, broken authentication, and security misconfigurations.
+          </p>
+        </Card>
+        <Card>
+          <div class="text-[var(--accent-primary)] text-2xl mb-3">&#10003;</div>
+          <h3 class="text-lg font-semibold mb-2">Severity-rated findings</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Every finding is rated Critical, High, Medium, or Low with CVSS scores so you know what to fix first.
+          </p>
+        </Card>
+        <Card>
+          <div class="text-[var(--accent-primary)] text-2xl mb-3">&#10003;</div>
+          <h3 class="text-lg font-semibold mb-2">Any language, any framework</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            TypeScript, Python, Go, Rust, Java, Ruby, PHP, C# &mdash; if it's in a Git repo, we can scan it. AI understands code, not just patterns.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool 1: CLI -->
+  <section id="cli" class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <Badge text="CLI Tool" class="mb-6" />
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Scan from the command line.</h2>
+          <p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-6">
+            One command to scan your entire project. No config files, no setup wizards. Install and run in under 30 seconds.
+          </p>
+          <div class="font-mono text-sm bg-[var(--bg-tertiary)] rounded-lg px-4 py-3 border border-[var(--border)] mb-6">
+            <span class="text-[var(--text-muted)]">$</span> npx ai-sec scan ./my-app
+          </div>
+          <p class="text-sm text-[var(--text-muted)]">
+            Requires Node.js 18+. No account needed. Results saved locally as Markdown.
+          </p>
+        </div>
+        <div>
+          <Terminal title="terminal" lines={cliLines} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool 2: GitHub Action -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="md:order-2">
+          <Badge text="GitHub Action" class="mb-6" />
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Scan on every pull request.</h2>
+          <p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-6">
+            Add the AI-Sec GitHub Action to your workflow and catch security issues before they reach main. Block PRs that introduce critical vulnerabilities.
+          </p>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Runs on every PR automatically
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Configurable severity threshold
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Comments findings directly on the PR
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Optionally fail the build on findings
+            </li>
+          </ul>
+        </div>
+        <div class="md:order-1">
+          <Terminal title=".github/workflows/security.yml" lines={ghActionLines} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool 3: Claude Code Skill -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <Badge text="Claude Code Skill" class="mb-6" />
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Audit inside your IDE.</h2>
+          <p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-6">
+            Install the AI-Sec skill for Claude Code and run security audits directly in your development environment. The AI reasons about your full project context &mdash; not just the file you're looking at.
+          </p>
+          <div class="font-mono text-sm bg-[var(--bg-tertiary)] rounded-lg px-4 py-3 border border-[var(--border)] mb-6">
+            <span class="text-[var(--text-muted)]">$</span> claude install ai-sec
+          </div>
+          <p class="text-sm text-[var(--text-muted)]">
+            Works with Claude Code. Requires an active Claude subscription.
+          </p>
+        </div>
+        <div>
+          <Terminal title="claude code" lines={claudeSkillLines} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source vs Full Audit -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Free tools vs. full audit.</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              <th class="text-left p-4 text-sm font-medium text-[var(--text-muted)] border-b border-[var(--border)]">Capability</th>
+              <th class="text-left p-4 text-sm font-semibold text-[var(--text-secondary)] border-b border-[var(--border)]">Open Source (free)</th>
+              <th class="text-left p-4 text-sm font-semibold text-[var(--accent-primary)] border-b border-[var(--border)]">Full Audit (paid)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">OWASP Top 10 checks</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Full ASVS L2 (286 controls)</td>
+              <td class="p-4 text-sm text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Architectural reasoning</td>
+              <td class="p-4 text-sm text-[var(--text-secondary)]">Basic</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003; Deep</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Reproduction steps</td>
+              <td class="p-4 text-sm text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Fix guidance with code</td>
+              <td class="p-4 text-sm text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Expert review</td>
+              <td class="p-4 text-sm text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Compliance mapping</td>
+              <td class="p-4 text-sm text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">&#10003;</td>
+            </tr>
+            <tr class="border-b border-[var(--border)]">
+              <td class="p-4 text-sm text-[var(--text-primary)]">Coverage</td>
+              <td class="p-4 text-sm text-[var(--text-secondary)]">~60%</td>
+              <td class="p-4 text-sm text-[var(--accent-primary)]">100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-8">
+        <Button href="/pricing" variant="primary" size="md">See Full Pricing &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Start scanning in 30 seconds.</h2>
+      <p class="text-[var(--text-secondary)] mt-4 text-lg">
+        Install the CLI, run it on your project, and see what the AI finds. No account, no config, no credit card.
+      </p>
+      <div class="font-mono text-sm bg-[var(--bg-tertiary)] rounded-lg px-6 py-4 border border-[var(--border)] mt-8 inline-block">
+        <span class="text-[var(--text-muted)]">$</span> npx ai-sec scan ./my-app
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <Button href="https://github.com/sergey-ko" variant="primary" size="lg">View on GitHub &rarr;</Button>
+        <Button href="/free-scan" variant="secondary" size="lg">Try Free Scan</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer productName="AI-Sec" links={footerLinks} />
+</Base>

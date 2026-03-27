@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@import '@fce/shared/styles/tokens.css';
+
+:root {
+  --accent-primary: #22C55E;
+  --accent-primary-dim: #16A34A;
+  --accent-btn-text: #000000;
+  --gradient-hero: linear-gradient(135deg, #0A0A0B 0%, #0F1A12 50%, #0A0A0B 100%);
+}

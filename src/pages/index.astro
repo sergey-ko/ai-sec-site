@@ -1,0 +1,281 @@
+---
+import Base from '@fce/shared/layouts/Base.astro';
+import Nav from '@fce/shared/components/Nav.astro';
+import Hero from '@fce/shared/components/Hero.astro';
+import Card from '@fce/shared/components/Card.astro';
+import Terminal from '@fce/shared/components/Terminal.astro';
+import ComparisonTable from '@fce/shared/components/ComparisonTable.astro';
+import ProofGrid from '@fce/shared/components/ProofGrid.astro';
+import PricingTable from '@fce/shared/components/PricingTable.astro';
+import Button from '@fce/shared/components/Button.astro';
+import Footer from '@fce/shared/components/Footer.astro';
+import FAQ from '../components/FAQ.astro';
+import FindingCard from '../components/FindingCard.astro';
+import '../styles/theme.css';
+
+const navLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Open Source', href: '/open-source' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+];
+
+const footerLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+];
+
+const terminalLines = [
+  '<span class="text-[var(--text-muted)]">$</span> ai-sec audit --repo github.com/acme/app',
+  '',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Cloning repository... <span class="text-[var(--text-muted)]">done</span>',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Analyzing architecture... <span class="text-[var(--text-muted)]">done</span>',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> OWASP ASVS L2 checklist... <span class="text-[var(--text-muted)]">done</span>',
+  '<span class="text-[var(--accent-primary)]">&#10003;</span> Cross-referencing findings... <span class="text-[var(--text-muted)]">done</span>',
+  '',
+  '<span class="text-[var(--text-muted)]">── RESULTS ──────────────────────────────────</span>',
+  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  2</span>   Broken authentication flow',
+  '<span class="text-red-400 font-bold">  HIGH      5</span>   IDOR in /api/users/:id',
+  '<span class="text-[var(--color-warning)] font-bold">  MEDIUM    8</span>   Missing rate limiting',
+  '<span class="text-[var(--text-muted)] font-bold">  LOW      12</span>   Informational findings',
+  '',
+  '  Full report: ./audit-report-2026-03-26.md',
+];
+
+const comparisonColumns = ['AI-Sec', 'Snyk / Semgrep', 'Traditional Pentest'];
+const comparisonRows = [
+  { label: 'Architecture reasoning', values: ['&#10003;', '&#10007;', '&#10003;'] },
+  { label: 'IDOR / broken auth detection', values: ['&#10003;', '&#10007;', '&#10003;'] },
+  { label: 'Business logic analysis', values: ['&#10003;', '&#10007;', '&#10003;'] },
+  { label: 'OWASP ASVS L2 methodology', values: ['&#10003;', 'Partial', 'Varies'] },
+  { label: 'CVSS-scored findings', values: ['&#10003;', '&#10003;', '&#10003;'] },
+  { label: 'Reproduction steps', values: ['&#10003;', '&#10007;', '&#10003;'] },
+  { label: 'Fix guidance with code', values: ['&#10003;', '&#10007;', 'Sometimes'] },
+  { label: 'Turnaround time', values: ['Days', 'Minutes', '4-6 weeks'] },
+  { label: 'Price', values: ['From $2K', 'From $0', 'From $15K'] },
+  { label: 'Works on full codebase', values: ['&#10003;', 'File-by-file', 'Black-box'] },
+];
+
+const pricingTiers = [
+  {
+    name: 'Startup Quick',
+    price: '$2-5K',
+    description: 'Perfect for vibecoded apps and MVPs',
+    features: [
+      'AI audit + 2hr expert review',
+      'OWASP Top 10 coverage',
+      'Prioritized findings + fix guidance',
+    ],
+    cta: { text: 'Get Started', href: '/contact' },
+  },
+  {
+    name: 'Standard',
+    price: '$10-20K',
+    description: 'Full compliance-ready audit',
+    features: [
+      'Complete ASVS L2 audit',
+      'Active testing',
+      'Compliance-ready report',
+    ],
+    cta: { text: 'Get Started', href: '/contact' },
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    price: '$20-50K+',
+    description: 'For regulated industries',
+    features: [
+      'ASVS L2/L3 + CIS benchmarks',
+      'SOC 2, ISO 27001, PCI DSS mapping',
+      'Dedicated security engineer',
+    ],
+    cta: { text: 'Contact Us', href: '/contact' },
+  },
+];
+
+const faqItems = [
+  {
+    question: 'What languages and frameworks do you support?',
+    answer: 'We support any language and framework that lives in a Git repository. Our AI reads and reasons about code regardless of the stack \u2014 TypeScript, Python, Go, Rust, Java, Ruby, PHP, C#, and more. If you can commit it, we can audit it.',
+  },
+  {
+    question: 'How is this different from running Snyk or Semgrep?',
+    answer: 'Snyk and Semgrep match known patterns \u2014 they\'re great at catching known CVEs in dependencies and common injection patterns. AI-Sec reasons about your architecture holistically. We catch IDORs, broken authentication flows, business logic flaws, and trust boundary violations that pattern-matching tools structurally cannot detect. Think of it as the difference between a spell checker and someone who actually reads your essay.',
+  },
+  {
+    question: 'Is my code safe? Who has access?',
+    answer: 'Your code is processed in a secure, isolated environment. We never store your source code after the audit completes. Only the audit findings and metadata are retained. We can sign an NDA before engagement if required. For Enterprise clients, we support on-premise deployment.',
+  },
+  {
+    question: "What's in the report?",
+    answer: 'Every finding includes: severity rating (CVSS score), OWASP Top 10 category, CWE identifier, detailed description, reproduction steps, fix guidance with code examples, and references. Findings are prioritized by risk so you know what to fix first.',
+  },
+  {
+    question: 'Can I use this for SOC 2 / ISO 27001 compliance?',
+    answer: 'Yes. Our Standard and Enterprise tiers produce compliance-ready reports with explicit mapping to SOC 2 Trust Service Criteria, ISO 27001 Annex A controls, and PCI DSS requirements. Many of our clients use our reports as evidence artifacts in their compliance programs.',
+  },
+  {
+    question: 'How long does an audit take?',
+    answer: 'Startup Quick audits are delivered in 2-3 business days. Standard audits take 1-2 weeks. Enterprise engagements with compliance mapping take 2-4 weeks. The automated AI scan itself runs in minutes \u2014 the timeline includes expert review and report preparation.',
+  },
+  {
+    question: "What if you don't find anything?",
+    answer: "In our experience, every codebase has findings. The question is severity. If we genuinely find no issues above informational severity, we'll tell you \u2014 and you'll have a clean report to show investors, enterprise prospects, or regulators.",
+  },
+];
+---
+
+<Base
+  title="AI-Sec \u2014 Security audits that understand your code"
+  description="AI-powered security audits using OWASP ASVS L2 methodology. Architectural reasoning finds what scanners miss. From $2K. Results in days, not weeks."
+>
+  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <span class="inline-block bg-[var(--bg-tertiary)] text-[var(--accent-primary)] text-xs font-mono font-medium px-4 py-1.5 rounded-full border border-[var(--border)] mb-8">
+        Battle-tested on a VARA-regulated crypto exchange
+      </span>
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-[var(--text-primary)] leading-tight max-w-4xl mx-auto">
+        Security audits that<br />understand your code.
+      </h1>
+      <p class="text-lg sm:text-xl md:text-2xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
+        AI-powered security analysis that reasons about your architecture &mdash; broken auth flows, IDORs, business logic holes &mdash; not just regex patterns. Professional-grade results in days, not weeks. Starting at $2K.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+        <Button href="/free-scan" variant="primary" size="lg">Get Free Scan &rarr;</Button>
+        <Button href="/pricing" variant="secondary" size="lg">See Pricing</Button>
+      </div>
+      <div class="mt-16 max-w-3xl mx-auto">
+        <Terminal title="ai-sec audit" lines={terminalLines} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center">Your code works. But is it secure?</h2>
+      <p class="text-[var(--text-secondary)] text-center mt-4 max-w-2xl mx-auto text-lg">
+        Most apps ship with critical vulnerabilities that automated scanners miss.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <Card>
+          <div class="text-3xl mb-4">&#x1F6E1;&#xFE0F;</div>
+          <h3 class="text-lg font-semibold mb-2">Vibecoded and vulnerable</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            You built it with Cursor, v0, or Codex. It works beautifully. But AI-generated code inherits AI-generated vulnerabilities &mdash; broken auth flows, exposed endpoints, missing access controls. You don't know what you don't know.
+          </p>
+        </Card>
+        <Card>
+          <div class="text-3xl mb-4">&#x23F0;</div>
+          <h3 class="text-lg font-semibold mb-2">Pentests take weeks and cost $30K+</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Traditional security firms charge $15-50K and deliver a black-box PDF in 4-6 weeks. By then your launch window is closed, your funding round is stalled, and your enterprise prospect moved on.
+          </p>
+        </Card>
+        <Card>
+          <div class="text-3xl mb-4">&#x1F50D;</div>
+          <h3 class="text-lg font-semibold mb-2">Scanners find patterns, not flaws</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Snyk, Semgrep, and SonarQube match regex patterns. They'll catch SQL injection templates but completely miss IDORs, broken business logic, architectural trust boundary violations, and auth flow bypasses &mdash; the vulnerabilities that actually get you breached.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">Three steps to a secure codebase.</h2>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <span class="text-5xl font-bold text-[var(--accent-primary)] font-mono">01</span>
+          <h3 class="text-xl font-semibold mt-4 mb-3">Submit your repo</h3>
+          <p class="text-[var(--text-secondary)] leading-relaxed">
+            Point us at your GitHub repository (private or public). We accept any language, any framework. Your code never leaves our secure infrastructure.
+          </p>
+        </div>
+        <div>
+          <span class="text-5xl font-bold text-[var(--accent-primary)] font-mono">02</span>
+          <h3 class="text-xl font-semibold mt-4 mb-3">AI audits your architecture</h3>
+          <p class="text-[var(--text-secondary)] leading-relaxed">
+            Our AI reads your entire codebase and reasons about it holistically &mdash; mapping auth flows, data access patterns, trust boundaries, and business logic. Every finding is tagged with a CVSS severity score and OWASP Top 10 category.
+          </p>
+        </div>
+        <div>
+          <span class="text-5xl font-bold text-[var(--accent-primary)] font-mono">03</span>
+          <h3 class="text-xl font-semibold mt-4 mb-3">Get actionable results</h3>
+          <p class="text-[var(--text-secondary)] leading-relaxed mb-6">
+            You receive a prioritized report with reproduction steps, fix guidance, and code examples. Hand it to your dev team &mdash; or your AI coding agent. No 200-page PDF. Just what to fix, in order of severity.
+          </p>
+          <FindingCard
+            severity="CRITICAL"
+            title="Broken Authentication in Password Reset Flow"
+            cvss="9.1"
+            owasp="A07:2021"
+            cwe="CWE-640"
+            description="The password reset endpoint /api/auth/reset accepts any user ID without verifying the reset token belongs to the requesting user."
+            fix="Validate that req.user.id matches the token's associated user before allowing password change."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <ComparisonTable
+    headline="Not another scanner."
+    columns={comparisonColumns}
+    rows={comparisonRows}
+  />
+
+  <!-- Social Proof / Case Study Teaser -->
+  <ProofGrid
+    headline="Proven on production systems."
+    points={[
+      { title: '64+ findings discovered', description: 'Across two full audit iterations on a live, VARA-regulated cryptocurrency exchange.' },
+      { title: '2 full audit iterations', description: 'Complete remediation cycle with re-audit to verify fixes and catch regressions.' },
+      { title: 'ASVS L2 compliance methodology', description: 'Industry-standard OWASP framework applied systematically \u2014 not a homebrew checklist.' },
+      { title: 'Built by a CTO who ships product', description: 'Not a security vendor guessing at developer workflows. Built by someone who runs engineering and builds audit tooling.' },
+    ]}
+  />
+  <div class="max-w-6xl mx-auto px-6 -mt-16 mb-24 text-center">
+    <Button href="/case-study" variant="secondary" size="md">Read the full case study &rarr;</Button>
+  </div>
+
+  <!-- Pricing Teaser -->
+  <PricingTable
+    headline="Enterprise-grade security at startup prices."
+    subheadline="Self-service scans starting at $50 \u2014 coming soon."
+    tiers={pricingTiers}
+  />
+
+  <!-- FAQ -->
+  <FAQ items={faqItems} />
+
+  <!-- Bottom CTA -->
+  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Your code is live. Is it secure?</h2>
+      <p class="text-[var(--text-secondary)] mt-4 text-lg">
+        Get a free quick-scan of your repository. No commitment. See what an AI-powered security audit actually finds.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <Button href="/free-scan" variant="primary" size="lg">Get Free Scan &rarr;</Button>
+        <Button href="/contact" variant="secondary" size="lg">Book a 15-min Call</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer
+    productName="AI-Sec"
+    links={footerLinks}
+  />
+</Base>

@@ -1,0 +1,170 @@
+---
+import Base from '@fce/shared/layouts/Base.astro';
+import Nav from '@fce/shared/components/Nav.astro';
+import Badge from '@fce/shared/components/Badge.astro';
+import Button from '@fce/shared/components/Button.astro';
+import Footer from '@fce/shared/components/Footer.astro';
+import AuditForm from '../components/AuditForm.astro';
+import '../styles/theme.css';
+
+const navLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Open Source', href: '/open-source' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+];
+
+const footerLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+];
+---
+
+<Base
+  title="Free Security Scan \u2014 AI-Sec"
+  description="Submit your GitHub repo for a free AI-powered OWASP Top 10 security scan. Results in 24 hours. No credit card required."
+>
+  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+
+  <!-- Hero: split layout -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
+      <!-- Left: copy -->
+      <div>
+        <Badge text="Free \u2014 No credit card required" class="mb-8" />
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+          Get a free security<br />quick-scan.
+        </h1>
+        <p class="text-lg text-[var(--text-secondary)] mt-6 leading-relaxed">
+          Submit your public GitHub repository and we'll run an automated AI security scan against the OWASP Top 10. You'll receive a summary of findings via email within 24 hours.
+        </p>
+
+        <div class="mt-8 space-y-3">
+          <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider">What you'll get:</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> OWASP Top 10 vulnerability scan
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Severity-rated findings (Critical / High / Medium / Low)
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Top 3 findings with descriptions
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Recommendation for next steps
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-8 space-y-3">
+          <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider">What you won't get (that's in paid tiers):</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start gap-2 text-[var(--text-muted)]">
+              <span class="text-[var(--text-muted)]">&#10007;</span> Full ASVS L2 audit
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-muted)]">
+              <span class="text-[var(--text-muted)]">&#10007;</span> Reproduction steps and fix guidance
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-muted)]">
+              <span class="text-[var(--text-muted)]">&#10007;</span> Expert review
+            </li>
+            <li class="flex items-start gap-2 text-[var(--text-muted)]">
+              <span class="text-[var(--text-muted)]">&#10007;</span> Compliance mapping
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-8 p-4 rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <p class="text-sm text-[var(--text-secondary)]">
+            <span class="font-semibold text-[var(--text-primary)]">Have a private repo?</span> Free scans are for public repositories only. For private repos, <a href="/contact" class="text-[var(--accent-primary)] hover:underline">book a call</a> and we'll scope a consulting engagement.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="md:sticky md:top-24">
+        <AuditForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- What Happens Next -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">What happens after you submit.</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--accent-primary)] font-mono font-bold text-lg mb-4">1</span>
+          <h3 class="text-lg font-semibold mb-2">We clone &amp; scan</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Our AI analyzes your repository against the OWASP Top 10 checklist in a secure, isolated environment. This takes minutes.
+          </p>
+        </div>
+        <div class="text-center">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--accent-primary)] font-mono font-bold text-lg mb-4">2</span>
+          <h3 class="text-lg font-semibold mb-2">Results emailed</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            You'll receive an email within 24 hours with a summary of findings, severity ratings, and a recommendation for next steps.
+          </p>
+        </div>
+        <div class="text-center">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--accent-primary)] font-mono font-bold text-lg mb-4">3</span>
+          <h3 class="text-lg font-semibold mb-2">Optional deep dive</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+            Want the full picture? Book a call to discuss your results and scope a comprehensive ASVS L2 audit. No pressure, no upsell tricks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Signals -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-sm text-[var(--text-muted)] uppercase tracking-wider mb-6">Used by teams building on:</p>
+      <div class="flex flex-wrap justify-center gap-6 mb-12">
+        {['React', 'Next.js', 'Node.js', 'Python', 'Go', 'Rails', 'Laravel'].map(tech => (
+          <span class="font-mono text-sm text-[var(--text-secondary)] px-3 py-1 rounded-md bg-[var(--bg-secondary)] border border-[var(--border)]">{tech}</span>
+        ))}
+      </div>
+
+      <div class="border-t border-[var(--border)] pt-12">
+        <h3 class="text-lg font-semibold mb-6">Your code is safe with us.</h3>
+        <div class="grid sm:grid-cols-2 gap-4 text-left max-w-lg mx-auto">
+          <p class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+            <span class="text-[var(--accent-primary)]">&#10003;</span> Processed in isolated environments
+          </p>
+          <p class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+            <span class="text-[var(--accent-primary)]">&#10003;</span> Never stored after analysis
+          </p>
+          <p class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+            <span class="text-[var(--accent-primary)]">&#10003;</span> NDA available on request
+          </p>
+          <p class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+            <span class="text-[var(--accent-primary)]">&#10003;</span> SOC 2 compliant infrastructure (coming soon)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Not ready for the free scan?</h2>
+      <p class="text-[var(--text-secondary)] mt-4 text-lg">
+        Book a 15-minute call instead. Tell us what you built, and we'll tell you what to worry about. No pitch, just security guidance.
+      </p>
+      <div class="mt-8">
+        <Button href="/contact" variant="secondary" size="lg">Book a Call &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer productName="AI-Sec" links={footerLinks} />
+</Base>

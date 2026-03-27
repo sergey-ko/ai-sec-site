@@ -1,0 +1,319 @@
+---
+import Base from '@fce/shared/layouts/Base.astro';
+import Nav from '@fce/shared/components/Nav.astro';
+import Badge from '@fce/shared/components/Badge.astro';
+import Card from '@fce/shared/components/Card.astro';
+import Button from '@fce/shared/components/Button.astro';
+import Footer from '@fce/shared/components/Footer.astro';
+import FindingCard from '../components/FindingCard.astro';
+import '../styles/theme.css';
+
+const navLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Open Source', href: '/open-source' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+];
+
+const footerLinks = [
+  { text: 'Free Scan', href: '/free-scan' },
+  { text: 'Pricing', href: '/pricing' },
+  { text: 'Case Study', href: '/case-study' },
+  { text: 'Contact', href: '/contact' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+];
+
+const clientInfo = [
+  { label: 'Client', value: 'FCE (FCE Global)' },
+  { label: 'Industry', value: 'Cryptocurrency / Fintech' },
+  { label: 'Regulation', value: 'VARA (Dubai)' },
+  { label: 'Stack', value: 'TypeScript, Next.js, Node.js, PostgreSQL, Azure' },
+  { label: 'Engagement', value: '2 full audit iterations' },
+  { label: 'Methodology', value: 'OWASP ASVS L2 + CIS Benchmarks' },
+];
+
+const findings = [
+  { category: 'V2: Authentication', count: 12, note: '3 critical', width: '100%' },
+  { category: 'V4: Access Control', count: 11, note: '2 critical', width: '92%' },
+  { category: 'V3: Session Management', count: 8, note: '1 critical', width: '67%' },
+  { category: 'V8: Data Protection', count: 7, note: '', width: '58%' },
+  { category: 'V1: Architecture & Design', count: 6, note: '', width: '50%' },
+  { category: 'V13: API Security', count: 5, note: '1 critical', width: '42%' },
+  { category: 'V5: Input Validation', count: 4, note: '', width: '33%' },
+  { category: 'V14: Configuration', count: 4, note: '1 critical', width: '33%' },
+  { category: 'V7: Error Handling & Logging', count: 3, note: '', width: '25%' },
+  { category: 'V9: Communications Security', count: 2, note: '', width: '17%' },
+  { category: 'Other categories', count: 2, note: '', width: '17%' },
+];
+
+const steps = [
+  {
+    title: 'Full codebase analysis',
+    body: 'AI-Sec ingested the entire codebase \u2014 frontend, backend, API layer, infrastructure configs \u2014 and built a holistic understanding of the architecture, data flows, and trust boundaries.',
+  },
+  {
+    title: 'ASVS L2 systematic audit',
+    body: 'Every control in the OWASP ASVS L2 checklist (286 verification requirements across 14 categories) was evaluated against the codebase. Findings were tagged with CVSS severity scores and CWE identifiers.',
+  },
+  {
+    title: 'Active testing of critical flows',
+    body: 'Authentication, authorization, session management, and financial transaction flows were actively tested for logic flaws, race conditions, and bypass vulnerabilities.',
+  },
+  {
+    title: 'CIS benchmark assessment',
+    body: 'Infrastructure and deployment configurations were evaluated against CIS benchmark standards for cloud environments.',
+  },
+  {
+    title: 'Remediation + re-audit',
+    body: 'After the first iteration, the team fixed critical and high findings. We ran a complete second audit to verify fixes and catch any regressions or newly exposed attack surfaces.',
+  },
+];
+---
+
+<Base
+  title="64+ Findings on a Regulated Crypto Exchange \u2014 AI-Sec"
+  description="How AI-Sec audited a VARA-regulated cryptocurrency exchange using OWASP ASVS L2 methodology and found 64+ security vulnerabilities across two audit iterations."
+>
+  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+
+  <!-- Hero -->
+  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <Badge text="Case Study" class="mb-8" />
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight max-w-4xl mx-auto">
+        64+ findings on a VARA-regulated crypto exchange.
+      </h1>
+      <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
+        How AI-Sec audited a live production cryptocurrency exchange across two full iterations using OWASP ASVS L2 methodology &mdash; and what we found.
+      </p>
+      <div class="mt-8">
+        <Button href="/contact" variant="primary" size="lg">Book Your Audit &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Overview -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {clientInfo.map(item => (
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] text-center">
+            <p class="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">{item.label}</p>
+            <p class="text-sm font-semibold text-[var(--text-primary)]">{item.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Challenge -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold mb-8">The challenge.</h2>
+      <div class="space-y-4 text-[var(--text-secondary)] text-lg leading-relaxed">
+        <p>
+          FCE operates a cryptocurrency exchange under VARA regulation in Dubai. As a regulated financial platform handling real money and real user data, security isn't optional &mdash; it's a licensing requirement.
+        </p>
+        <p>
+          The exchange was built rapidly using modern development practices including AI-assisted coding. The team needed to verify that the platform met professional security standards before going live with regulated trading operations.
+        </p>
+        <p>
+          Traditional pentest firms quoted $30-50K and 6-week timelines. The team needed results faster and more actionable than a traditional black-box PDF report.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold mb-8">Our approach.</h2>
+      <p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-12">
+        We conducted a comprehensive white-box audit using AI-Sec's architectural reasoning approach, applied systematically through the OWASP ASVS L2 framework.
+      </p>
+      <div class="space-y-8">
+        {steps.map((step, i) => (
+          <div class="flex gap-6">
+            <div class="flex-shrink-0">
+              <span class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border)] text-[var(--accent-primary)] font-mono font-bold text-sm">
+                {i + 1}
+              </span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-2">{step.title}</h3>
+              <p class="text-[var(--text-secondary)] leading-relaxed">{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Results -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">The results.</h2>
+
+      <!-- Stat cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-primary)]">
+          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">64+</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Total findings</p>
+        </div>
+        <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-primary)]">
+          <p class="text-4xl md:text-5xl font-bold text-[var(--color-error)]">8</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Critical severity</p>
+        </div>
+        <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-primary)]">
+          <p class="text-4xl md:text-5xl font-bold text-red-400">15</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">High severity</p>
+        </div>
+        <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-primary)]">
+          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">100%</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Findings with fix guidance</p>
+        </div>
+      </div>
+
+      <!-- Breakdown by category -->
+      <div class="max-w-3xl mx-auto">
+        <h3 class="text-lg font-semibold mb-6">Breakdown by ASVS category</h3>
+        <div class="space-y-3">
+          {findings.map(f => (
+            <div class="flex items-center gap-4">
+              <span class="text-sm text-[var(--text-secondary)] w-56 flex-shrink-0 truncate">{f.category}</span>
+              <div class="flex-1 bg-[var(--bg-tertiary)] rounded-full h-6 overflow-hidden">
+                <div
+                  class="h-full bg-[var(--accent-primary)] rounded-full flex items-center justify-end pr-2"
+                  style={`width: ${f.width}`}
+                >
+                  <span class="text-xs font-mono text-[var(--accent-btn-text)] font-bold">{f.count}</span>
+                </div>
+              </div>
+              {f.note && (
+                <span class="text-xs text-[var(--color-error)] font-mono flex-shrink-0">{f.note}</span>
+              )}
+            </div>
+          ))}
+        </div>
+        <p class="text-sm text-[var(--text-muted)] mt-8 leading-relaxed">
+          Every finding included a CVSS severity score, OWASP category, CWE identifier, detailed description, reproduction steps, and code-level fix guidance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample Findings -->
+  <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">Sample findings.</h2>
+      <p class="text-[var(--text-secondary)] text-center max-w-2xl mx-auto mb-16">
+        Below are representative examples of finding types (sanitized for confidentiality). These illustrate the depth of analysis &mdash; not just what was found, but how to fix it.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <FindingCard
+          severity="CRITICAL"
+          title="Insecure Direct Object Reference in User API"
+          cvss="8.6"
+          owasp="A01:2021"
+          cwe="CWE-639"
+          description="The /api/users/:id endpoint returns full user profile data for any user ID without verifying that the requesting user has authorization to access that specific record. An authenticated user can enumerate and access any other user's data by iterating IDs."
+          fix="Implement ownership validation middleware that checks req.user.id === params.id or role === 'admin' before returning user data."
+        />
+        <FindingCard
+          severity="HIGH"
+          title="Session Token Persists After Password Change"
+          cvss="7.1"
+          owasp="A07:2021"
+          cwe="CWE-613"
+          description="When a user changes their password, existing session tokens are not invalidated. If a session was compromised, an attacker retains access even after the user changes their password."
+          fix="Invalidate all existing sessions for the user upon password change. Issue a new session token only for the current request."
+        />
+        <FindingCard
+          severity="MEDIUM"
+          title="Missing Rate Limiting on Authentication Endpoints"
+          cvss="5.3"
+          owasp="A04:2021"
+          cwe="CWE-307"
+          description="The /api/auth/login and /api/auth/reset endpoints do not implement rate limiting. This allows automated brute-force and credential-stuffing attacks."
+          fix="Implement rate limiting (e.g., 5 attempts per minute per IP) using a middleware like express-rate-limit with a Redis-backed store for distributed deployments."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- The Outcome -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold mb-8">The outcome.</h2>
+      <p class="text-[var(--text-secondary)] text-lg leading-relaxed mb-8">
+        After two audit iterations, FCE's security posture improved dramatically:
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-6 mb-12">
+        <div>
+          <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">Before</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--color-error)]">&#10007;</span> 64+ undetected vulnerabilities
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--color-error)]">&#10007;</span> No ASVS compliance evidence
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--color-error)]">&#10007;</span> No CIS benchmark assessment
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--color-error)]">&#10007;</span> Ad-hoc security practices
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-4">After</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> All critical/high findings remediated
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> ASVS L2 compliance matrix documented
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> CIS benchmark gaps identified and addressed
+            </li>
+            <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+              <span class="text-[var(--accent-primary)]">&#10003;</span> Structured security review process
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-[var(--text-secondary)] leading-relaxed mb-12">
+        The audit reports now serve as compliance evidence for VARA regulatory requirements, investor due diligence, and enterprise partnership discussions.
+      </p>
+
+      <!-- Quote -->
+      <blockquote class="border-l-4 border-[var(--accent-primary)] pl-6 py-2">
+        <p class="text-lg text-[var(--text-primary)] italic leading-relaxed">
+          "The AI-Sec audit found architectural vulnerabilities that no automated scanner would have caught. The findings were actionable &mdash; not a list of theoretical risks, but specific issues with reproduction steps and fix guidance. We fixed every critical and high finding within two weeks."
+        </p>
+        <cite class="block text-sm text-[var(--text-muted)] mt-4 not-italic">&mdash; Engineering Team, FCE</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Your codebase deserves the same analysis.</h2>
+      <p class="text-[var(--text-secondary)] mt-4 text-lg">
+        Whether you're a solo developer or a regulated enterprise, AI-Sec will find what scanners miss. Start with a free quick-scan or book a call to scope your audit.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <Button href="/free-scan" variant="primary" size="lg">Get Free Scan &rarr;</Button>
+        <Button href="/contact" variant="secondary" size="lg">Book a Call</Button>
+      </div>
+    </div>
+  </section>
+
+  <Footer productName="AI-Sec" links={footerLinks} />
+</Base>
