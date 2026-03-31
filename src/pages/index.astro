@@ -26,11 +26,11 @@ const footerLinks = [
   { text: 'Pricing', href: '/pricing' },
   { text: 'Case Study', href: '/case-study' },
   { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
 ];
 
 const terminalLines = [
-  '<span class="text-[var(--text-muted)]">$</span> ai-sec audit --repo github.com/acme/app',
+  '<span class="text-[var(--text-muted)]">$</span> ai-sec audit --repo github.com/maybe-finance/maybe',
   '',
   '<span class="text-[var(--accent-primary)]">&#10003;</span> Cloning repository... <span class="text-[var(--text-muted)]">done</span>',
   '<span class="text-[var(--accent-primary)]">&#10003;</span> Analyzing architecture... <span class="text-[var(--text-muted)]">done</span>',
@@ -38,12 +38,12 @@ const terminalLines = [
   '<span class="text-[var(--accent-primary)]">&#10003;</span> Cross-referencing findings... <span class="text-[var(--text-muted)]">done</span>',
   '',
   '<span class="text-[var(--text-muted)]">── RESULTS ──────────────────────────────────</span>',
-  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  2</span>   Broken authentication flow',
-  '<span class="text-red-400 font-bold">  HIGH      5</span>   IDOR in /api/users/:id',
-  '<span class="text-[var(--color-warning)] font-bold">  MEDIUM    8</span>   Missing rate limiting',
-  '<span class="text-[var(--text-muted)] font-bold">  LOW      12</span>   Informational findings',
+  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  4</span>   Plaintext bank credentials in config',
+  '<span class="text-red-400 font-bold">  HIGH      9</span>   IDOR in user data endpoints',
+  '<span class="text-[var(--color-warning)] font-bold">  MEDIUM   14</span>   Missing input validation',
+  '<span class="text-[var(--text-muted)] font-bold">  LOW       6</span>   Informational findings',
   '',
-  '  Full report: ./audit-report-2026-03-26.md',
+  '  Full report: ./audit-report-maybe-finance.md',
 ];
 
 const comparisonColumns = ['AI-Sec', 'Snyk / Semgrep', 'Traditional Pentest'];
@@ -56,30 +56,30 @@ const comparisonRows = [
   { label: 'Reproduction steps', values: ['&#10003;', '&#10007;', '&#10003;'] },
   { label: 'Fix guidance with code', values: ['&#10003;', '&#10007;', 'Sometimes'] },
   { label: 'Turnaround time', values: ['Days', 'Minutes', '4-6 weeks'] },
-  { label: 'Price', values: ['From $2K', 'From $0', 'From $15K'] },
+  { label: 'Price', values: ['From $500', 'From $0', 'From $15K'] },
   { label: 'Works on full codebase', values: ['&#10003;', 'File-by-file', 'Black-box'] },
 ];
 
 const pricingTiers = [
   {
-    name: 'Startup Quick',
-    price: '$2-5K',
-    description: 'Perfect for vibecoded apps and MVPs',
+    name: 'Open Source',
+    price: 'Free',
+    description: 'Claude Code skill on GitHub',
     features: [
-      'AI audit + 2hr expert review',
+      'Run /audit in your IDE',
       'OWASP Top 10 coverage',
-      'Prioritized findings + fix guidance',
+      'Finds ~60-70% of issues',
     ],
-    cta: { text: 'Get Started', href: '/contact' },
+    cta: { text: 'View on GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
   },
   {
-    name: 'Standard',
-    price: '$10-20K',
-    description: 'Full compliance-ready audit',
+    name: 'Startup Quick',
+    price: '$2-5K',
+    description: 'AI audit + expert review',
     features: [
-      'Complete ASVS L2 audit',
-      'Active testing',
-      'Compliance-ready report',
+      'Full ASVS L2 audit',
+      '2hr expert review',
+      'Prioritized findings + fix guidance',
     ],
     cta: { text: 'Get Started', href: '/contact' },
     highlighted: true,
@@ -120,18 +120,18 @@ const faqItems = [
   },
   {
     question: 'How long does an audit take?',
-    answer: 'Startup Quick audits are delivered in 2-3 business days. Standard audits take 1-2 weeks. Enterprise engagements with compliance mapping take 2-4 weeks. The automated AI scan itself runs in minutes \u2014 the timeline includes expert review and report preparation.',
+    answer: 'Express audits are delivered in 1 day. Startup Quick audits are delivered in 2-3 business days. Standard audits take 1-2 weeks. Enterprise engagements with compliance mapping take 2-4 weeks. The automated AI scan itself runs in minutes \u2014 the timeline includes expert review and report preparation.',
   },
   {
     question: "What if you don't find anything?",
-    answer: "In our experience, every codebase has findings. The question is severity. If we genuinely find no issues above informational severity, we'll tell you \u2014 and you'll have a clean report to show investors, enterprise prospects, or regulators.",
+    answer: "In our experience, every codebase has findings. We found 91 findings across 3 open-source projects with 108K+ GitHub stars. The question is severity. If we genuinely find no issues above informational severity, we'll tell you \u2014 and you'll have a clean report to show investors, enterprise prospects, or regulators.",
   },
 ];
 ---
 
 <Base
   title="AI-Sec \u2014 Security audits that understand your code"
-  description="AI-powered security audits using OWASP ASVS L2 methodology. Architectural reasoning finds what scanners miss. From $2K. Results in days, not weeks."
+  description="AI-powered security audits using OWASP ASVS L2 methodology. 91 findings across 108K+ GitHub stars. Architectural reasoning finds what scanners miss."
 >
   <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
 
@@ -139,17 +139,17 @@ const faqItems = [
   <section class="min-h-screen flex items-center py-24 md:py-32" style={`background: var(--gradient-hero)`}>
     <div class="max-w-6xl mx-auto px-6 text-center">
       <span class="inline-block bg-[var(--bg-tertiary)] text-[var(--accent-primary)] text-xs font-mono font-medium px-4 py-1.5 rounded-full border border-[var(--border)] mb-8">
-        Battle-tested on a VARA-regulated crypto exchange
+        91 findings across 3 projects with 108K+ GitHub stars
       </span>
       <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-[var(--text-primary)] leading-tight max-w-4xl mx-auto">
         Security audits that<br />understand your code.
       </h1>
       <p class="text-lg sm:text-xl md:text-2xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
-        AI-powered security analysis that reasons about your architecture &mdash; broken auth flows, IDORs, business logic holes &mdash; not just regex patterns. Professional-grade results in days, not weeks. Starting at $2K.
+        AI-powered security analysis that reasons about your architecture &mdash; broken auth flows, IDORs, business logic holes &mdash; not just regex patterns. Free open-source tool. Professional consulting from $500.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
         <Button href="/free-scan" variant="primary" size="lg">Get Free Scan &rarr;</Button>
-        <Button href="/pricing" variant="secondary" size="lg">See Pricing</Button>
+        <Button href="https://github.com/sergey-ko/ai-sec" variant="secondary" size="lg">View on GitHub</Button>
       </div>
       <div class="mt-16 max-w-3xl mx-auto">
         <Terminal title="ai-sec audit" lines={terminalLines} />
@@ -157,8 +157,59 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- Problem Statement -->
+  <!-- Recent Audits -->
   <section class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">Real findings. Real projects.</h2>
+      <p class="text-[var(--text-secondary)] text-center mt-4 max-w-2xl mx-auto text-lg mb-16">
+        We audited 3 popular open-source projects and found 91 security issues that pattern-matching scanners missed.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <Card>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">maybe-finance</h3>
+            <span class="text-xs font-mono text-[var(--text-muted)]">35K stars</span>
+          </div>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+            Personal finance app. Our audit found plaintext bank credentials stored in configuration, broken access controls on financial data endpoints, and missing encryption on sensitive user data.
+          </p>
+          <div class="pt-3 border-t border-[var(--border)]">
+            <p class="text-xs font-mono text-[var(--color-error)]">Headline: Plaintext bank credentials in a personal finance app</p>
+          </div>
+        </Card>
+        <Card>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">Documenso</h3>
+            <span class="text-xs font-mono text-[var(--text-muted)]">8K stars</span>
+          </div>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+            Open-source e-signing platform. We discovered that encryption validation was commented out in the document signing flow, meaning signed documents could be tampered with without detection.
+          </p>
+          <div class="pt-3 border-t border-[var(--border)]">
+            <p class="text-xs font-mono text-[var(--color-error)]">Headline: Encryption validation commented out in e-signing platform</p>
+          </div>
+        </Card>
+        <Card>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">Hoppscotch</h3>
+            <span class="text-xs font-mono text-[var(--text-muted)]">65K stars</span>
+          </div>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+            Open-source API development platform. We found an IDOR vulnerability that lets any authenticated user read other users' saved API keys, including production secrets and auth tokens.
+          </p>
+          <div class="pt-3 border-t border-[var(--border)]">
+            <p class="text-xs font-mono text-[var(--color-error)]">Headline: IDOR lets any user read other users' saved API keys</p>
+          </div>
+        </Card>
+      </div>
+      <div class="text-center mt-10">
+        <Button href="/case-study" variant="secondary" size="md">See full audit details &rarr;</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-5xl font-bold text-center">Your code works. But is it secure?</h2>
       <p class="text-[var(--text-secondary)] text-center mt-4 max-w-2xl mx-auto text-lg">
@@ -191,7 +242,7 @@ const faqItems = [
   </section>
 
   <!-- How It Works -->
-  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+  <section class="py-24 md:py-32">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">Three steps to a secure codebase.</h2>
       <div class="grid md:grid-cols-3 gap-12">
@@ -217,12 +268,12 @@ const faqItems = [
           </p>
           <FindingCard
             severity="CRITICAL"
-            title="Broken Authentication in Password Reset Flow"
-            cvss="9.1"
-            owasp="A07:2021"
-            cwe="CWE-640"
-            description="The password reset endpoint /api/auth/reset accepts any user ID without verifying the reset token belongs to the requesting user."
-            fix="Validate that req.user.id matches the token's associated user before allowing password change."
+            title="IDOR: Any User Can Read Other Users' API Keys"
+            cvss="8.6"
+            owasp="A01:2021"
+            cwe="CWE-639"
+            description="The /api/user-environments/:id endpoint returns saved API keys for any environment ID without verifying the requesting user owns that environment. An attacker can enumerate IDs to steal production secrets."
+            fix="Add ownership validation: verify req.user.id matches the environment's ownerUid before returning data."
           />
         </div>
       </div>
@@ -240,32 +291,64 @@ const faqItems = [
   <ProofGrid
     headline="Proven on production systems."
     points={[
-      { title: '64+ findings discovered', description: 'Across two full audit iterations on a live, VARA-regulated cryptocurrency exchange.' },
-      { title: '2 full audit iterations', description: 'Complete remediation cycle with re-audit to verify fixes and catch regressions.' },
+      { title: '91 findings across 3 projects', description: 'Audited maybe-finance (35K stars), Documenso (8K stars), and Hoppscotch (65K stars) \u2014 108K+ combined GitHub stars.' },
+      { title: '87+ findings on production fintech', description: 'Two full audit iterations on a live, VARA-regulated cryptocurrency exchange. Critical vulnerabilities caught and fixed.' },
       { title: 'ASVS L2 compliance methodology', description: 'Industry-standard OWASP framework applied systematically \u2014 not a homebrew checklist.' },
-      { title: 'Built by a CTO who ships product', description: 'Not a security vendor guessing at developer workflows. Built by someone who runs engineering and builds audit tooling.' },
+      { title: 'Free open-source tool available', description: 'Clone the repo, run /audit, get results. No account needed. Finds ~60-70% of what the full audit catches.' },
     ]}
   />
   <div class="max-w-6xl mx-auto px-6 -mt-16 mb-24 text-center">
-    <Button href="/case-study" variant="secondary" size="md">Read the full case study &rarr;</Button>
+    <Button href="/case-study" variant="secondary" size="md">Read the full case studies &rarr;</Button>
   </div>
 
   <!-- Pricing Teaser -->
   <PricingTable
-    headline="Enterprise-grade security at startup prices."
-    subheadline="Self-service scans starting at $50 \u2014 coming soon."
+    headline="From free to enterprise-grade."
+    subheadline="Open-source tool on GitHub. Self-service SaaS coming soon. Consulting from $500."
     tiers={pricingTiers}
   />
 
   <!-- FAQ -->
   <FAQ items={faqItems} />
 
+  <!-- Founder Section -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8">Built by a practitioner, not a vendor.</h2>
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-primary)] p-8 md:p-12">
+        <h3 class="text-2xl font-bold text-[var(--text-primary)]">Sergey Kovalev</h3>
+        <p class="text-[var(--text-secondary)] mt-2 text-lg">CTO at a VARA-regulated crypto exchange</p>
+        <p class="text-[var(--text-secondary)] mt-6 leading-relaxed max-w-xl mx-auto">
+          Built from real audit methodology &mdash; 87+ findings on a production fintech platform across two full audit iterations. AI-Sec is not a security vendor guessing at developer workflows. It's tooling built by someone who runs engineering, ships product, and audits his own code.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <a
+            href="https://www.linkedin.com/in/skovalev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-[var(--accent-primary)] hover:underline font-medium"
+          >
+            LinkedIn Profile &rarr;
+          </a>
+          <a
+            href="https://github.com/sergey-ko/ai-sec"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-[var(--accent-primary)] hover:underline font-medium"
+          >
+            GitHub: ai-sec &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Bottom CTA -->
   <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-bold">Your code is live. Is it secure?</h2>
       <p class="text-[var(--text-secondary)] mt-4 text-lg">
-        Get a free quick-scan of your repository. No commitment. See what an AI-powered security audit actually finds.
+        Get a free quick-scan of your repository. Or clone the open-source tool and run it yourself. No commitment.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
         <Button href="/free-scan" variant="primary" size="lg">Get Free Scan &rarr;</Button>

@@ -22,7 +22,7 @@ const footerLinks = [
   { text: 'Pricing', href: '/pricing' },
   { text: 'Case Study', href: '/case-study' },
   { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
+  { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
 ];
 
 const comparisonColumns = ['AI-Sec Startup Quick', 'Snyk (Team)', 'Manual Pentest'];
@@ -41,8 +41,12 @@ const comparisonRows = [
 
 const faqItems = [
   {
-    question: 'Can I start with Startup Quick and upgrade later?',
-    answer: "Absolutely. Many clients start with a Startup Quick to understand their risk profile, then upgrade to Standard when they need compliance evidence or deeper analysis. We apply a portion of your Startup Quick fee toward the Standard tier.",
+    question: 'Can I start with the open-source tool and upgrade later?',
+    answer: "Absolutely. Many users start with the free open-source tool to understand their risk profile, then upgrade to consulting for deeper analysis and compliance evidence. The open-source tool finds ~60-70% of what the full audit catches \u2014 it's a great starting point.",
+  },
+  {
+    question: 'Can I start with Express and upgrade to a deeper audit?',
+    answer: "Yes. Express gives you a fast snapshot of your top risks. If findings warrant deeper investigation, we'll credit a portion of your Express fee toward a Startup Quick or Standard engagement.",
   },
   {
     question: 'Do you offer discounts for startups or open-source projects?',
@@ -54,14 +58,14 @@ const faqItems = [
   },
   {
     question: 'Is there a money-back guarantee?',
-    answer: "If we fail to deliver findings that you find actionable and valuable, we'll refund your fee. We've never had to do this \u2014 every codebase has findings.",
+    answer: "If we fail to deliver findings that you find actionable and valuable, we'll refund your fee. We've never had to do this \u2014 every codebase has findings. We found 91 across 3 open-source projects.",
   },
 ];
 ---
 
 <Base
   title="Pricing \u2014 AI-Sec"
-  description="Enterprise-grade security audits from $2K. Three tiers: Startup Quick ($2-5K), Standard ($10-20K), Enterprise ($20-50K+). Self-service scans coming soon."
+  description="Three tiers: Open-source (free), Self-service SaaS ($50-200, coming soon), Consulting ($500-50K+). 91 findings across 108K+ GitHub stars."
 >
   <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
 
@@ -69,30 +73,160 @@ const faqItems = [
   <section class="py-24 md:py-32">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
-        Enterprise security.<br />Startup pricing.
+        Free to start.<br />Enterprise when ready.
       </h1>
       <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
-        Professional OWASP ASVS L2 security audits starting at $2K. No six-figure contracts. No six-week timelines. Just actionable findings you can fix today.
+        Open-source tool on GitHub. Self-service SaaS coming soon. Professional consulting from $500. 91 findings across 108K+ GitHub stars &mdash; same methodology at every tier.
       </p>
     </div>
   </section>
 
-  <!-- Consulting Tiers -->
+  <!-- Tier 1: Open Source -->
   <section class="py-12 md:py-16">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- Startup Quick -->
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 1: Open Source</h2>
+      <div class="rounded-xl p-6 md:p-8 border-2 border-[var(--accent-primary)] bg-[var(--bg-secondary)] relative">
+        <span class="absolute -top-3 left-6 bg-[var(--accent-primary)] text-[var(--accent-btn-text)] text-xs font-bold px-4 py-1 rounded-full">
+          AVAILABLE NOW
+        </span>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold">Claude Code Security Skill</h3>
+            <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">Free</p>
+            <p class="text-sm text-[var(--text-secondary)] mt-2">Clone the repo, run /audit, get findings</p>
+            <ul class="mt-6 space-y-3">
+              {[
+                '5 specialized agents (web-app, API, CI/CD, infra, mobile)',
+                'OWASP Top 10 coverage',
+                'Severity-rated findings (CVSS)',
+                'Any language, any framework',
+                'Runs locally \u2014 your code stays on your machine',
+                'Finds ~60-70% of what the full audit catches',
+              ].map(f => (
+                <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                  <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://github.com/sergey-ko/ai-sec"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-center mt-6 px-6 py-3 rounded-lg font-medium bg-[var(--accent-primary)] text-[var(--accent-btn-text)] hover:opacity-90 transition-opacity"
+            >
+              View on GitHub &rarr;
+            </a>
+          </div>
+          <div>
+            <div class="font-mono text-sm bg-[var(--bg-tertiary)] rounded-lg p-4 border border-[var(--border)] space-y-2">
+              <p><span class="text-[var(--text-muted)]">$</span> git clone https://github.com/sergey-ko/ai-sec.git</p>
+              <p><span class="text-[var(--text-muted)]">$</span> cd your-project</p>
+              <p><span class="text-[var(--text-muted)]">$</span> /audit</p>
+            </div>
+            <p class="text-xs text-[var(--text-muted)] mt-4">
+              Requires Claude Code with an active Claude subscription. No AI-Sec account needed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier 2: Self-Service SaaS -->
+  <section class="py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 2: Self-Service SaaS</h2>
+      <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)] relative opacity-90">
+        <Badge text="Coming Soon \u2014 Q2 2026" class="mb-6" />
+        <p class="text-[var(--text-secondary)] leading-relaxed mb-6">
+          Submit a repo, get results in minutes. No call, no waiting. Perfect for continuous security checks during development.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr>
+                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Plan</th>
+                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Price</th>
+                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">What you get</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[var(--border)]">
+                <td class="p-3 text-[var(--text-primary)]">Free Scan</td>
+                <td class="p-3 text-[var(--accent-primary)] font-semibold">$0</td>
+                <td class="p-3 text-[var(--text-secondary)]">Quick-scan of public repo. Top 5 findings. Email report.</td>
+              </tr>
+              <tr class="border-b border-[var(--border)]">
+                <td class="p-3 text-[var(--text-primary)]">Full Audit</td>
+                <td class="p-3 text-[var(--text-secondary)]">$50-200</td>
+                <td class="p-3 text-[var(--text-secondary)]">Complete ASVS scan. All findings with CVSS, fix guidance.</td>
+              </tr>
+              <tr class="border-b border-[var(--border)]">
+                <td class="p-3 text-[var(--text-primary)]">Monthly Pro</td>
+                <td class="p-3 text-[var(--text-secondary)]">$29-99/mo</td>
+                <td class="p-3 text-[var(--text-secondary)]">N audits/month. Continuous monitoring. CI/CD integration.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-6">
+          <Button href="/free-scan" variant="secondary" size="md">Join the Waitlist &rarr;</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier 3: Consulting -->
+  <section class="py-12 md:py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 3: Consulting</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Express -->
         <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <h3 class="text-lg font-semibold">Express</h3>
+          <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$500-1.5K</p>
+          <p class="text-sm text-[var(--text-secondary)] mt-1">1-day AI audit, async delivery</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 1 day</p>
+          <ul class="mt-6 space-y-3">
+            {[
+              '1-day AI security audit',
+              'OWASP Top 10 coverage',
+              'Top findings report',
+              'No call \u2014 async delivery',
+            ].map(f => (
+              <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <p class="text-xs text-[var(--text-muted)] mt-6">
+            Best for: Quick health check, vibecoders who want a fast answer.
+          </p>
+          <a
+            href="/contact"
+            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
+          >
+            Book Express &rarr;
+          </a>
+        </div>
+
+        <!-- Startup Quick -->
+        <div class="rounded-xl p-6 md:p-8 border-2 border-[var(--accent-primary)] bg-[var(--bg-secondary)] relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent-primary)] text-[var(--accent-btn-text)] text-xs font-bold px-4 py-1 rounded-full">
+            MOST POPULAR
+          </span>
           <h3 class="text-lg font-semibold">Startup Quick</h3>
           <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$2-5K</p>
-          <p class="text-sm text-[var(--text-secondary)] mt-1">Best for MVPs and vibecoded apps</p>
-          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 2-3 business days</p>
+          <p class="text-sm text-[var(--text-secondary)] mt-1">AI audit + expert review</p>
+          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 2-3 days</p>
           <ul class="mt-6 space-y-3">
             {[
               'Automated AI security audit',
               '2-hour expert review',
               'OWASP Top 10 coverage',
-              'Prioritized findings with severity scores',
+              'Prioritized findings with CVSS',
               'Fix guidance for all findings',
               'PDF + Markdown report',
             ].map(f => (
@@ -103,21 +237,18 @@ const faqItems = [
             ))}
           </ul>
           <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Solo developers, vibecoder projects, early-stage startups, freelancers delivering to clients.
+            Best for: MVPs, vibecoded apps, early-stage startups, freelancers.
           </p>
           <a
             href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
+            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium bg-[var(--accent-primary)] text-[var(--accent-btn-text)] hover:opacity-90 transition-opacity"
           >
             Book a Call &rarr;
           </a>
         </div>
 
-        <!-- Standard (Highlighted) -->
-        <div class="rounded-xl p-6 md:p-8 border-2 border-[var(--accent-primary)] bg-[var(--bg-secondary)] relative">
-          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent-primary)] text-[var(--accent-btn-text)] text-xs font-bold px-4 py-1 rounded-full">
-            MOST POPULAR
-          </span>
+        <!-- Standard -->
+        <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)]">
           <h3 class="text-lg font-semibold">Standard</h3>
           <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$10-20K</p>
           <p class="text-sm text-[var(--text-secondary)] mt-1">Full compliance-ready audit</p>
@@ -127,10 +258,9 @@ const faqItems = [
             {[
               'Complete ASVS L2 checklist (286 controls)',
               'Active testing of critical flows',
-              'CVSS-scored findings with reproduction steps',
+              'CVSS-scored with reproduction steps',
               'Code-level fix examples',
               'Compliance-ready report format',
-              '1 hour remediation consultation',
               '30-day re-test of fixed findings',
             ].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
@@ -140,11 +270,11 @@ const faqItems = [
             ))}
           </ul>
           <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Seed/Series A startups, teams needing SOC 2 evidence, enterprise sales requirements.
+            Best for: Seed/Series A, SOC 2 evidence, enterprise sales.
           </p>
           <a
             href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium bg-[var(--accent-primary)] text-[var(--accent-btn-text)] hover:opacity-90 transition-opacity"
+            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
           >
             Book a Call &rarr;
           </a>
@@ -161,13 +291,10 @@ const faqItems = [
             {[
               'ASVS L2/L3 coverage',
               'CIS benchmark assessment',
-              'SOC 2 Trust Service Criteria mapping',
-              'ISO 27001 Annex A mapping',
-              'PCI DSS mapping (if applicable)',
+              'SOC 2 / ISO 27001 / PCI DSS mapping',
               'Dedicated security engineer',
               'Executive summary for board/investors',
               '90-day re-test window',
-              'On-call support during remediation',
             ].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
                 <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
@@ -176,7 +303,7 @@ const faqItems = [
             ))}
           </ul>
           <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Fintech, crypto, healthcare, any regulated industry. Companies preparing for SOC 2 or ISO certification.
+            Best for: Fintech, crypto, healthcare, regulated industries.
           </p>
           <a
             href="/contact"
@@ -189,52 +316,27 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- Self-Service Coming Soon -->
-  <section class="py-24 md:py-32">
-    <div class="max-w-3xl mx-auto px-6">
-      <Card class="relative opacity-90">
-        <Badge text="Coming Soon \u2014 Q2 2026" class="mb-6" />
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Self-service scans. From $50.</h2>
-        <p class="text-[var(--text-secondary)] leading-relaxed mb-6">
-          Run AI-Sec audits on demand &mdash; no call, no waiting. Submit a repo, get results in minutes. Perfect for continuous security checks during development.
-        </p>
-        <div class="overflow-x-auto">
-          <table class="w-full border-collapse text-sm">
-            <thead>
-              <tr>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Plan</th>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Price</th>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">What you get</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Quick Scan</td>
-                <td class="p-3 text-[var(--text-secondary)]">$50</td>
-                <td class="p-3 text-[var(--text-secondary)]">OWASP Top 10 scan, severity ratings</td>
-              </tr>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Full ASVS</td>
-                <td class="p-3 text-[var(--text-secondary)]">$150-200</td>
-                <td class="p-3 text-[var(--text-secondary)]">Complete ASVS L2 analysis</td>
-              </tr>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Monthly Pro</td>
-                <td class="p-3 text-[var(--text-secondary)]">$99/mo</td>
-                <td class="p-3 text-[var(--text-secondary)]">5 full scans/month + monitoring</td>
-              </tr>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Monthly Team</td>
-                <td class="p-3 text-[var(--text-secondary)]">$299/mo</td>
-                <td class="p-3 text-[var(--text-secondary)]">20 scans + CI/CD integration</td>
-              </tr>
-            </tbody>
-          </table>
+  <!-- Social Proof -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">91</p>
+          <p class="text-sm text-[var(--text-muted)] mt-1">Findings across 3 projects</p>
         </div>
-        <div class="mt-6">
-          <Button href="/free-scan" variant="secondary" size="md">Join the Waitlist &rarr;</Button>
+        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">108K+</p>
+          <p class="text-sm text-[var(--text-muted)] mt-1">Combined GitHub stars</p>
         </div>
-      </Card>
+        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">87+</p>
+          <p class="text-sm text-[var(--text-muted)] mt-1">Findings on production fintech</p>
+        </div>
+        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">100%</p>
+          <p class="text-sm text-[var(--text-muted)] mt-1">Findings with fix guidance</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -258,11 +360,11 @@ const faqItems = [
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-bold">Ready to find out what's in your code?</h2>
       <p class="text-[var(--text-secondary)] mt-4 text-lg">
-        Book a 15-minute scoping call. We'll tell you which tier fits and what to expect. No commitment required.
+        Start free with the open-source tool. Or book a 15-minute scoping call for consulting.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-        <Button href="/contact" variant="primary" size="lg">Book a Call &rarr;</Button>
-        <Button href="/free-scan" variant="secondary" size="lg">Get Free Scan</Button>
+        <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="lg">View on GitHub &rarr;</Button>
+        <Button href="/contact" variant="secondary" size="lg">Book a Call</Button>
       </div>
     </div>
   </section>
