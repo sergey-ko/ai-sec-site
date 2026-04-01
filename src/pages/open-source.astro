@@ -7,23 +7,8 @@ import Terminal from '@fce/shared/components/Terminal.astro';
 import Button from '@fce/shared/components/Button.astro';
 import Footer from '@fce/shared/components/Footer.astro';
 import FindingCard from '../components/FindingCard.astro';
+import { navLinks, footerLinks, navCta, url } from '../lib/links';
 import '../styles/theme.css';
-
-const navLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Open Source', href: '/open-source' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-];
-
-const footerLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
-];
 
 const cloneLines = [
   '<span class="text-[var(--text-muted)]">$</span> git clone https://github.com/sergey-ko/ai-sec.git',
@@ -78,7 +63,7 @@ const auditExampleLines = [
   title="Open-Source Security Tool \u2014 AI-Sec"
   description="Free, open-source AI security audit tool. Clone the repo, run /audit, get findings. 5 specialized agents for web apps, APIs, CI/CD, infrastructure, and mobile."
 >
-  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+  <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
   <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
@@ -290,15 +275,15 @@ const auditExampleLines = [
             <tr class="border-b border-[var(--border)]">
               <td class="p-4 text-sm text-[var(--text-primary)]">Price</td>
               <td class="p-4 text-sm text-[var(--accent-primary)] font-semibold">Free</td>
-              <td class="p-4 text-sm text-[var(--text-secondary)]">$50-200</td>
-              <td class="p-4 text-sm text-[var(--text-secondary)]">$500-50K+</td>
+              <td class="p-4 text-sm text-[var(--text-secondary)]">$299/mo</td>
+              <td class="p-4 text-sm text-[var(--text-secondary)]">From $3,500</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
         <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="md">Clone the Repo &rarr;</Button>
-        <Button href="/pricing" variant="secondary" size="md">See Full Pricing</Button>
+        <Button href={url('/pricing')} variant="secondary" size="md">See Full Pricing</Button>
       </div>
     </div>
   </section>
@@ -315,7 +300,7 @@ const auditExampleLines = [
       </div>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
         <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="lg">View on GitHub &rarr;</Button>
-        <Button href="/free-scan" variant="secondary" size="lg">Try Free Scan</Button>
+        <Button href={url('/contact')} variant="secondary" size="lg">Book a Call</Button>
       </div>
     </div>
   </section>

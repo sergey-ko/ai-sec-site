@@ -4,30 +4,15 @@ import Nav from '@fce/shared/components/Nav.astro';
 import Card from '@fce/shared/components/Card.astro';
 import Button from '@fce/shared/components/Button.astro';
 import Footer from '@fce/shared/components/Footer.astro';
+import { navLinks, footerLinks, navCta, url } from '../lib/links';
 import '../styles/theme.css';
-
-const navLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Open Source', href: '/open-source' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-];
-
-const footerLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko' },
-];
 ---
 
 <Base
   title="Book a Call \u2014 AI-Sec"
-  description="Book a 15-minute call to scope your security audit. No sales pitch \u2014 just guidance on securing your codebase."
+  description="Book a 30-minute call to scope your security audit. No sales pitch \u2014 just guidance on securing your codebase."
 >
-  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+  <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
   <section class="py-24 md:py-32">
@@ -36,7 +21,7 @@ const footerLinks = [
         Let's talk security.
       </h1>
       <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
-        Book a 15-minute call to discuss your codebase, your requirements, and which audit tier fits. No sales pitch &mdash; just security guidance from someone who builds production systems.
+        Book a 30-minute call to discuss your codebase, your requirements, and which audit tier fits. No sales pitch &mdash; just security guidance from someone who builds production systems.
       </p>
     </div>
   </section>
@@ -51,7 +36,7 @@ const footerLinks = [
             <p class="text-[var(--text-muted)] mb-4">Calendly booking widget</p>
             <div
               class="calendly-inline-widget"
-              data-url="https://calendly.com/sergey-ko/ai-sec-intro"
+              data-url="https://calendly.com/skaskapro/30min"
               style="min-width:320px;height:650px;"
             ></div>
             <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -88,7 +73,7 @@ const footerLinks = [
                 You decide
               </h3>
               <p class="text-sm text-[var(--text-secondary)] mt-1 ml-6 leading-relaxed">
-                No pressure. If a free quick-scan answers your question, great. If you need a full audit, we'll scope it and send a proposal within 24 hours.
+                No pressure. If the free open-source tool answers your question, great. If you need a deeper audit, we'll scope it and send a proposal within 24 hours.
               </p>
             </div>
           </div>
@@ -195,9 +180,9 @@ const footerLinks = [
           <div class="text-[var(--accent-primary)] text-4xl mb-4">&#10003;</div>
           <h3 class="text-xl font-bold mb-2">Message sent!</h3>
           <p class="text-[var(--text-secondary)] mb-6">
-            We'll get back to you within 24 hours. In the meantime, you can also grab a free quick-scan of your repo.
+            We'll get back to you within 24 hours. In the meantime, try the free open-source tool on your repo.
           </p>
-          <Button href="/free-scan" variant="primary" size="md">Get Free Scan &rarr;</Button>
+          <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="md">View on GitHub &rarr;</Button>
         </div>
       </Card>
     </div>

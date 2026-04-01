@@ -1,0 +1,119 @@
+---
+interface Props {
+  tier: 'opensource' | 'saas' | 'consulting';
+  label: string;
+  headline: string;
+  story: string;
+  features: string[];
+  proof?: string;
+  ctaPrimary?: { text: string; href: string };
+  ctaSecondary?: { text: string; href: string };
+  pricingHint?: string;
+}
+
+const { tier, label, headline, story, features, proof, ctaPrimary, ctaSecondary, pricingHint } = Astro.props;
+
+const tierColors = {
+  opensource: {
+    label: 'text-[var(--color-opensource)]',
+    border: 'border-[var(--color-opensource)]/20',
+    btn: 'bg-[var(--color-opensource)] text-black',
+    dot: 'bg-[var(--color-opensource)]',
+    glow: 'glow-green',
+  },
+  saas: {
+    label: 'text-[var(--color-saas)]',
+    border: 'border-[var(--color-saas)]/20',
+    btn: 'bg-[var(--color-saas)] text-black',
+    dot: 'bg-[var(--color-saas)]',
+    glow: 'glow-violet',
+  },
+  consulting: {
+    label: 'text-[var(--color-consulting)]',
+    border: 'border-[var(--color-consulting)]/20',
+    btn: 'bg-[var(--color-consulting)] text-white',
+    dot: 'bg-[var(--color-consulting)]',
+    glow: 'glow-blue',
+  },
+};
+
+const colors = tierColors[tier];
+
+const bgStyle = tier === 'opensource'
+  ? 'background: var(--gradient-os)'
+  : tier === 'consulting'
+    ? 'background: var(--gradient-consult)'
+    : '';
+---
+
+<section class={`py-24 md:py-32 border-b ${colors.border} ${colors.glow} bg-grid overflow-hidden`} style={bgStyle}>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-start">
+      <div>
+        <!-- Tier label -->
+        <span class={`font-mono text-xs uppercase tracking-[0.2em] font-medium ${colors.label}`}>
+          {label}
+        </span>
+
+        <!-- Headline -->
+        <h2 class="text-3xl md:text-4xl font-semibold text-[var(--text-primary)] mt-4 leading-tight tracking-tight">
+          {headline}
+        </h2>
+
+        <!-- Story -->
+        <p class="text-lg text-[var(--text-secondary)] mt-6 leading-relaxed max-w-xl">
+          <Fragment set:html={story} />
+        </p>
+
+        <!-- Features -->
+        <ul class="mt-8 space-y-3">
+          {features.map(f => (
+            <li class="flex items-start gap-3 text-[var(--text-secondary)]">
+              <span class={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${colors.dot}`}></span>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Proof -->
+        {proof && (
+          <p class="mt-8 text-sm text-[var(--text-muted)] italic border-l-2 border-[var(--border)] pl-4">
+            {proof}
+          </p>
+        )}
+
+        <!-- Pricing hint -->
+        {pricingHint && (
+          <p class="mt-6 text-sm font-mono text-[var(--text-muted)]">
+            {pricingHint}
+          </p>
+        )}
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4 mt-8">
+          {ctaPrimary && (
+            <a
+              href={ctaPrimary.href}
+              class={`inline-flex items-center px-6 py-3 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity ${colors.btn}`}
+            >
+              {ctaPrimary.text}
+            </a>
+          )}
+          {ctaSecondary && (
+            <a
+              href={ctaSecondary.href}
+              class="inline-flex items-center px-6 py-3 rounded-lg font-medium text-sm border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
+            >
+              {ctaSecondary.text}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Right column: slot for visual content -->
+      <div class="hidden md:block w-[380px] flex-shrink-0 relative z-10">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

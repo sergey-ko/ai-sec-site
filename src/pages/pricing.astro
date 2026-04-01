@@ -2,313 +2,235 @@
 import Base from '@fce/shared/layouts/Base.astro';
 import Nav from '@fce/shared/components/Nav.astro';
 import Badge from '@fce/shared/components/Badge.astro';
-import Card from '@fce/shared/components/Card.astro';
 import ComparisonTable from '@fce/shared/components/ComparisonTable.astro';
-import Button from '@fce/shared/components/Button.astro';
 import Footer from '@fce/shared/components/Footer.astro';
 import FAQ from '../components/FAQ.astro';
+import { navLinks, footerLinks, navCta, url } from '../lib/links';
 import '../styles/theme.css';
 
-const navLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Open Source', href: '/open-source' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-];
-
-const footerLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
-];
-
-const comparisonColumns = ['AI-Sec Startup Quick', 'Snyk (Team)', 'Manual Pentest'];
+const comparisonColumns = ['AI-Sec', 'Snyk / Semgrep', 'Traditional Pentest'];
 const comparisonRows = [
-  { label: 'Price', values: ['$2-5K', '$0-98/mo', '$15-50K+'] },
-  { label: 'Turnaround', values: ['2-3 days', 'Real-time', '4-6 weeks'] },
-  { label: 'Architectural reasoning', values: ['&#10003;', '&#10007;', '&#10003;'] },
-  { label: 'IDOR / auth flow bugs', values: ['&#10003;', '&#10007;', '&#10003;'] },
-  { label: 'Business logic flaws', values: ['&#10003;', '&#10007;', '&#10003;'] },
-  { label: 'Known CVE detection', values: ['&#10003;', '&#10003;', '&#10003;'] },
-  { label: 'OWASP ASVS methodology', values: ['&#10003;', 'Partial', 'Varies'] },
-  { label: 'Fix guidance with code', values: ['&#10003;', '&#10007;', 'Sometimes'] },
-  { label: 'Compliance mapping', values: ['Standard+', '&#10007;', 'Enterprise only'] },
-  { label: 'Expert review', values: ['&#10003; (included)', '&#10007;', '&#10003;'] },
+  { label: 'Architecture reasoning', values: ['✓', '✗', '✓'] },
+  { label: 'IDOR / broken auth detection', values: ['✓', '✗', '✓'] },
+  { label: 'Business logic analysis', values: ['✓', '✗', '✓'] },
+  { label: 'OWASP ASVS L2 methodology', values: ['✓', 'Partial', 'Varies'] },
+  { label: 'CVSS-scored findings', values: ['✓', '✓', '✓'] },
+  { label: 'Fix guidance with code', values: ['✓', '✗', 'Sometimes'] },
+  { label: 'Turnaround', values: ['Minutes → weeks', 'Minutes', '4-6 weeks'] },
+  { label: 'Price', values: ['Free → $30K+', 'Free → $98/mo', '$15K+'] },
+  { label: 'Full codebase analysis', values: ['✓', 'File-by-file', 'Black-box'] },
 ];
 
 const faqItems = [
   {
-    question: 'Can I start with the open-source tool and upgrade later?',
-    answer: "Absolutely. Many users start with the free open-source tool to understand their risk profile, then upgrade to consulting for deeper analysis and compliance evidence. The open-source tool finds ~60-70% of what the full audit catches \u2014 it's a great starting point.",
+    question: 'What languages and frameworks do you support?',
+    answer: 'Any language and framework in a Git repository. TypeScript, Python, Go, Rust, Java, Ruby, PHP, C#, and more. If you can commit it, we can audit it.',
   },
   {
-    question: 'Can I start with Express and upgrade to a deeper audit?',
-    answer: "Yes. Express gives you a fast snapshot of your top risks. If findings warrant deeper investigation, we'll credit a portion of your Express fee toward a Startup Quick or Standard engagement.",
+    question: 'How is this different from Snyk or Semgrep?',
+    answer: 'They match known patterns — great for CVEs and injection templates. AI-Sec reasons about your architecture holistically: IDORs, broken auth flows, business logic flaws, trust boundary violations. The difference between a spell checker and someone who reads your essay.',
   },
   {
-    question: 'Do you offer discounts for startups or open-source projects?',
-    answer: 'Yes. We offer reduced rates for pre-seed startups and free quick-scans for significant open-source projects. Contact us to discuss.',
+    question: 'Can I start free and upgrade later?',
+    answer: "Yes. Most users start with the free tool, see real findings, then upgrade to consulting for deeper analysis. The free tool finds ~60-70% of what the full audit catches.",
   },
   {
-    question: 'What if I need something between tiers?',
-    answer: "Every engagement is scoped to your needs. The tiers are starting points. Book a call and we'll put together a custom scope that fits your budget and requirements.",
+    question: 'Is my code safe? Who has access?',
+    answer: 'Code is processed in isolated environments. We never store source code after the audit. Only findings and metadata are retained. NDA available. Enterprise clients get on-premise deployment.',
   },
   {
-    question: 'Is there a money-back guarantee?',
-    answer: "If we fail to deliver findings that you find actionable and valuable, we'll refund your fee. We've never had to do this \u2014 every codebase has findings. We found 91 across 3 open-source projects.",
+    question: "What's in the report?",
+    answer: 'Every finding: CVSS severity, OWASP category, CWE identifier, description, reproduction steps, fix guidance with code examples. Prioritized by risk.',
+  },
+  {
+    question: 'Can I use this for SOC 2 / ISO 27001?',
+    answer: 'Yes. Standard and Enterprise consulting produce compliance-ready reports mapped to SOC 2, ISO 27001, and PCI DSS. Many clients use our reports as compliance evidence.',
+  },
+  {
+    question: 'What if you don\'t find anything?',
+    answer: "Every codebase has findings. We found 91 across 3 projects with 108K+ GitHub stars. If we genuinely find nothing above informational, you get a clean report for investors or regulators.",
   },
 ];
 ---
 
 <Base
-  title="Pricing \u2014 AI-Sec"
-  description="Three tiers: Open-source (free), Self-service SaaS ($50-200, coming soon), Consulting ($500-50K+). 91 findings across 108K+ GitHub stars."
+  title="Pricing — AI-Sec"
+  description="Free open-source tool, $299/mo continuous platform (coming soon), consulting from $3,500. AI security at every scale."
 >
-  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+  <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
   <section class="py-24 md:py-32">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
-        Free to start.<br />Enterprise when ready.
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight">
+        From free to enterprise-grade.
       </h1>
-      <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
-        Open-source tool on GitHub. Self-service SaaS coming soon. Professional consulting from $500. 91 findings across 108K+ GitHub stars &mdash; same methodology at every tier.
+      <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-2xl mx-auto leading-relaxed">
+        Same methodology at every tier. Automation when you can. Experts when you must.
       </p>
     </div>
   </section>
 
-  <!-- Tier 1: Open Source -->
-  <section class="py-12 md:py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 1: Open Source</h2>
-      <div class="rounded-xl p-6 md:p-8 border-2 border-[var(--accent-primary)] bg-[var(--bg-secondary)] relative">
-        <span class="absolute -top-3 left-6 bg-[var(--accent-primary)] text-[var(--accent-btn-text)] text-xs font-bold px-4 py-1 rounded-full">
-          AVAILABLE NOW
-        </span>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-lg font-semibold">Claude Code Security Skill</h3>
-            <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">Free</p>
-            <p class="text-sm text-[var(--text-secondary)] mt-2">Clone the repo, run /audit, get findings</p>
-            <ul class="mt-6 space-y-3">
-              {[
-                '5 specialized agents (web-app, API, CI/CD, infra, mobile)',
-                'OWASP Top 10 coverage',
-                'Severity-rated findings (CVSS)',
-                'Any language, any framework',
-                'Runs locally \u2014 your code stays on your machine',
-                'Finds ~60-70% of what the full audit catches',
-              ].map(f => (
-                <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                  <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <a
-              href="https://github.com/sergey-ko/ai-sec"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block text-center mt-6 px-6 py-3 rounded-lg font-medium bg-[var(--accent-primary)] text-[var(--accent-btn-text)] hover:opacity-90 transition-opacity"
-            >
-              View on GitHub &rarr;
-            </a>
-          </div>
-          <div>
-            <div class="font-mono text-sm bg-[var(--bg-tertiary)] rounded-lg p-4 border border-[var(--border)] space-y-2">
-              <p><span class="text-[var(--text-muted)]">$</span> git clone https://github.com/sergey-ko/ai-sec.git</p>
-              <p><span class="text-[var(--text-muted)]">$</span> cd your-project</p>
-              <p><span class="text-[var(--text-muted)]">$</span> /audit</p>
-            </div>
-            <p class="text-xs text-[var(--text-muted)] mt-4">
-              Requires Claude Code with an active Claude subscription. No AI-Sec account needed.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Three-column pricing -->
+  <section class="pb-24 md:pb-32">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-6">
 
-  <!-- Tier 2: Self-Service SaaS -->
-  <section class="py-12 md:py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 2: Self-Service SaaS</h2>
-      <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)] relative opacity-90">
-        <Badge text="Coming Soon \u2014 Q2 2026" class="mb-6" />
-        <p class="text-[var(--text-secondary)] leading-relaxed mb-6">
-          Submit a repo, get results in minutes. No call, no waiting. Perfect for continuous security checks during development.
-        </p>
-        <div class="overflow-x-auto">
-          <table class="w-full border-collapse text-sm">
-            <thead>
-              <tr>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Plan</th>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">Price</th>
-                <th class="text-left p-3 text-[var(--text-muted)] font-medium border-b border-[var(--border)]">What you get</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Free Scan</td>
-                <td class="p-3 text-[var(--accent-primary)] font-semibold">$0</td>
-                <td class="p-3 text-[var(--text-secondary)]">Quick-scan of public repo. Top 5 findings. Email report.</td>
-              </tr>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Full Audit</td>
-                <td class="p-3 text-[var(--text-secondary)]">$50-200</td>
-                <td class="p-3 text-[var(--text-secondary)]">Complete ASVS scan. All findings with CVSS, fix guidance.</td>
-              </tr>
-              <tr class="border-b border-[var(--border)]">
-                <td class="p-3 text-[var(--text-primary)]">Monthly Pro</td>
-                <td class="p-3 text-[var(--text-secondary)]">$29-99/mo</td>
-                <td class="p-3 text-[var(--text-secondary)]">N audits/month. Continuous monitoring. CI/CD integration.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="mt-6">
-          <Button href="/free-scan" variant="secondary" size="md">Join the Waitlist &rarr;</Button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tier 3: Consulting -->
-  <section class="py-12 md:py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8">Tier 3: Consulting</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Express -->
-        <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <h3 class="text-lg font-semibold">Express</h3>
-          <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$500-1.5K</p>
-          <p class="text-sm text-[var(--text-secondary)] mt-1">1-day AI audit, async delivery</p>
-          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 1 day</p>
-          <ul class="mt-6 space-y-3">
+        <!-- Open Source -->
+        <div class="rounded-xl p-8 border border-[var(--color-opensource)]/30 bg-[var(--bg-secondary)] flex flex-col">
+          <span class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-opensource)]">Open Source</span>
+          <p class="text-3xl font-bold mt-3 text-[var(--text-primary)]">Free</p>
+          <p class="text-sm text-[var(--text-secondary)] mt-2 leading-relaxed">
+            Our gift to the ecosystem. Clone it, run it, ship safer code.
+          </p>
+          <ul class="mt-6 space-y-3 flex-1">
             {[
-              '1-day AI security audit',
+              'Run /audit in your IDE',
+              '5 specialized agents',
               'OWASP Top 10 coverage',
-              'Top findings report',
-              'No call \u2014 async delivery',
+              '~60-70% of full audit coverage',
+              'No account needed',
+              'Your code stays on your machine',
             ].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                <span class="text-[var(--color-opensource)] mt-0.5">&#10003;</span>
                 {f}
               </li>
             ))}
           </ul>
-          <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Quick health check, vibecoders who want a fast answer.
-          </p>
-          <a
-            href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
-          >
-            Book Express &rarr;
+          <a href="https://github.com/sergey-ko/ai-sec" target="_blank" rel="noopener noreferrer" class="block text-center mt-8 px-5 py-3 rounded-lg font-medium text-sm border border-[var(--color-opensource)]/30 text-[var(--color-opensource)] hover:border-[var(--color-opensource)]/60 transition-colors">
+            View on GitHub &rarr;
           </a>
         </div>
 
-        <!-- Startup Quick -->
-        <div class="rounded-xl p-6 md:p-8 border-2 border-[var(--accent-primary)] bg-[var(--bg-secondary)] relative">
-          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent-primary)] text-[var(--accent-btn-text)] text-xs font-bold px-4 py-1 rounded-full">
-            MOST POPULAR
-          </span>
-          <h3 class="text-lg font-semibold">Startup Quick</h3>
-          <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$2-5K</p>
-          <p class="text-sm text-[var(--text-secondary)] mt-1">AI audit + expert review</p>
-          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 2-3 days</p>
-          <ul class="mt-6 space-y-3">
+        <!-- SaaS Platform — Coming Soon -->
+        <div class="rounded-xl p-8 border border-[var(--color-saas)]/30 bg-[var(--bg-secondary)] flex flex-col relative">
+          <Badge text="Coming Soon" />
+          <span class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-saas)] mt-4 block">Platform</span>
+          <p class="text-3xl font-bold mt-3 text-[var(--text-primary)]">$299<span class="text-lg font-normal text-[var(--text-muted)]">/mo</span></p>
+          <p class="text-sm text-[var(--text-secondary)] mt-2 leading-relaxed">
+            The free tool scans. The platform hunts. Multi-step hardened workflows, continuously.
+          </p>
+          <ul class="mt-6 space-y-3 flex-1">
             {[
-              'Automated AI security audit',
-              '2-hour expert review',
-              'OWASP Top 10 coverage',
-              'Prioritized findings with CVSS',
-              'Fix guidance for all findings',
-              'PDF + Markdown report',
+              'Multi-step audit workflows',
+              'Attack path chaining',
+              'Scan on every PR',
+              'Fix verification &mdash; confirm patches work',
+              'Team dashboard + trend tracking',
+              'CI/CD integration',
+              'Slack/email alerts',
             ].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                <span class="text-[var(--color-saas)] mt-0.5">&#10003;</span>
+                <span set:html={f} />
+              </li>
+            ))}
+          </ul>
+          <a href={url('/free-scan')} class="block text-center mt-8 px-5 py-3 rounded-lg font-medium text-sm border border-[var(--color-saas)]/30 text-[var(--color-saas)] hover:border-[var(--color-saas)]/60 transition-colors">
+            Join Waitlist &rarr;
+          </a>
+        </div>
+
+        <!-- Consulting -->
+        <div class="rounded-xl p-8 border border-[var(--color-consulting)]/30 bg-[var(--bg-secondary)] flex flex-col">
+          <span class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-consulting)]">Consulting</span>
+          <p class="text-3xl font-bold mt-3 text-[var(--text-primary)]">From $3,500</p>
+          <p class="text-sm text-[var(--text-secondary)] mt-2 leading-relaxed">
+            Human + AI. Red team, simulators, compliance. From code to cloud to runtime.
+          </p>
+          <ul class="mt-6 space-y-3 flex-1">
+            {[
+              'AI-powered red team exercises',
+              'Multi-level AI simulators',
+              'Code → infrastructure → runtime',
+              'OWASP ASVS L2/L3 methodology',
+              'Compliance mapping (SOC 2, ISO, PCI)',
+              'Expert review + remediation verification',
+            ].map(f => (
+              <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                <span class="text-[var(--color-consulting)] mt-0.5">&#10003;</span>
                 {f}
               </li>
             ))}
           </ul>
-          <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: MVPs, vibecoded apps, early-stage startups, freelancers.
-          </p>
-          <a
-            href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium bg-[var(--accent-primary)] text-[var(--accent-btn-text)] hover:opacity-90 transition-opacity"
-          >
+          <a href={url('/contact')} class="block text-center mt-8 px-5 py-3 rounded-lg font-medium text-sm bg-[var(--color-consulting)] text-white hover:opacity-90 transition-opacity">
             Book a Call &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-sm text-[var(--text-muted)]">
+          Open-source tool and consulting available now. SaaS platform launching soon.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consulting detail -->
+  <section class="py-24 md:py-32 bg-[var(--bg-secondary)]">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Consulting engagements.</h2>
+      <p class="text-[var(--text-secondary)] mb-12 max-w-2xl">When automation isn't enough. Every engagement is scoped on a call &mdash; these are starting points.</p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Startup -->
+        <div class="rounded-xl p-8 border-2 border-[var(--color-consulting)] bg-[var(--bg-primary)] relative flex flex-col">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--color-consulting)] text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>
+          <h3 class="text-xl font-semibold">Startup</h3>
+          <p class="text-3xl font-bold mt-2 text-[var(--color-consulting)]">$3,500</p>
+          <p class="text-xs font-mono text-[var(--text-muted)] mt-1">2-3 days</p>
+          <ul class="mt-6 space-y-3 flex-1">
+            {['Full ASVS L2 audit', '2hr expert review', 'All findings with CVSS scores', 'Fix guidance for every finding', 'PDF + Markdown report'].map(f => (
+              <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                <span class="text-[var(--color-consulting)] mt-0.5 text-xs">&#9679;</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <p class="text-xs text-[var(--text-muted)] mt-6 italic">Best for: MVPs, vibecoded apps, pre-launch, investor due diligence</p>
+          <a href={url('/contact')} class="block text-center mt-4 px-5 py-3 rounded-lg font-medium text-sm bg-[var(--color-consulting)] text-white hover:opacity-90 transition-opacity">
+            Get Started &rarr;
           </a>
         </div>
 
         <!-- Standard -->
-        <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <h3 class="text-lg font-semibold">Standard</h3>
-          <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$10-20K</p>
-          <p class="text-sm text-[var(--text-secondary)] mt-1">Full compliance-ready audit</p>
-          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 1-2 weeks</p>
-          <p class="text-xs text-[var(--text-muted)] mt-3 italic">Everything in Startup Quick, plus:</p>
-          <ul class="mt-4 space-y-3">
-            {[
-              'Complete ASVS L2 checklist (286 controls)',
-              'Active testing of critical flows',
-              'CVSS-scored with reproduction steps',
-              'Code-level fix examples',
-              'Compliance-ready report format',
-              '30-day re-test of fixed findings',
-            ].map(f => (
+        <div class="rounded-xl p-8 border border-[var(--border)] bg-[var(--bg-primary)] flex flex-col">
+          <h3 class="text-xl font-semibold">Standard</h3>
+          <p class="text-3xl font-bold mt-2 text-[var(--color-consulting)]">$15,000</p>
+          <p class="text-xs font-mono text-[var(--text-muted)] mt-1">1-2 weeks</p>
+          <p class="text-xs text-[var(--text-muted)] mt-3 italic">Everything in Startup, plus:</p>
+          <ul class="mt-4 space-y-3 flex-1">
+            {['Complete ASVS L2 (286 controls)', 'Active testing of critical flows', 'Compliance-ready report', '30-day re-test window'].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                <span class="text-[var(--color-consulting)] mt-0.5 text-xs">&#9679;</span>
                 {f}
               </li>
             ))}
           </ul>
-          <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Seed/Series A, SOC 2 evidence, enterprise sales.
-          </p>
-          <a
-            href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
-          >
+          <p class="text-xs text-[var(--text-muted)] mt-6 italic">Best for: Series A+, SOC 2 evidence, enterprise sales</p>
+          <a href={url('/contact')} class="block text-center mt-4 px-5 py-3 rounded-lg font-medium text-sm border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors">
             Book a Call &rarr;
           </a>
         </div>
 
         <!-- Enterprise -->
-        <div class="rounded-xl p-6 md:p-8 border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <h3 class="text-lg font-semibold">Enterprise</h3>
-          <p class="text-3xl font-bold mt-2 text-[var(--accent-primary)]">$20-50K+</p>
-          <p class="text-sm text-[var(--text-secondary)] mt-1">For regulated industries</p>
-          <p class="text-xs text-[var(--text-muted)] mt-2 font-mono">Timeline: 2-4 weeks</p>
+        <div class="rounded-xl p-8 border border-[var(--border)] bg-[var(--bg-primary)] flex flex-col">
+          <h3 class="text-xl font-semibold">Enterprise</h3>
+          <p class="text-3xl font-bold mt-2 text-[var(--color-consulting)]">From $30K</p>
+          <p class="text-xs font-mono text-[var(--text-muted)] mt-1">2-4 weeks</p>
           <p class="text-xs text-[var(--text-muted)] mt-3 italic">Everything in Standard, plus:</p>
-          <ul class="mt-4 space-y-3">
-            {[
-              'ASVS L2/L3 coverage',
-              'CIS benchmark assessment',
-              'SOC 2 / ISO 27001 / PCI DSS mapping',
-              'Dedicated security engineer',
-              'Executive summary for board/investors',
-              '90-day re-test window',
-            ].map(f => (
+          <ul class="mt-4 space-y-3 flex-1">
+            {['ASVS L2/L3 coverage', 'CIS + SOC 2 + ISO 27001 mapping', 'Dedicated security engineer', '90-day re-test window'].map(f => (
               <li class="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
-                <span class="text-[var(--accent-primary)] mt-0.5">&#10003;</span>
+                <span class="text-[var(--color-consulting)] mt-0.5 text-xs">&#9679;</span>
                 {f}
               </li>
             ))}
           </ul>
-          <p class="text-xs text-[var(--text-muted)] mt-6">
-            Best for: Fintech, crypto, healthcare, regulated industries.
-          </p>
-          <a
-            href="/contact"
-            class="block text-center mt-6 px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors"
-          >
+          <p class="text-xs text-[var(--text-muted)] mt-6 italic">Best for: fintech, crypto, healthcare, regulated industries</p>
+          <a href={url('/contact')} class="block text-center mt-4 px-5 py-3 rounded-lg font-medium text-sm border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors">
             Contact Us &rarr;
           </a>
         </div>
@@ -316,31 +238,7 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- Social Proof -->
-  <section class="py-16 md:py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">91</p>
-          <p class="text-sm text-[var(--text-muted)] mt-1">Findings across 3 projects</p>
-        </div>
-        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">108K+</p>
-          <p class="text-sm text-[var(--text-muted)] mt-1">Combined GitHub stars</p>
-        </div>
-        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">87+</p>
-          <p class="text-sm text-[var(--text-muted)] mt-1">Findings on production fintech</p>
-        </div>
-        <div class="p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-3xl md:text-4xl font-bold text-[var(--accent-primary)]">100%</p>
-          <p class="text-sm text-[var(--text-muted)] mt-1">Findings with fix guidance</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Comparison vs Alternatives -->
+  <!-- Comparison Table -->
   <ComparisonTable
     headline="How we compare."
     columns={comparisonColumns}
@@ -348,23 +246,27 @@ const faqItems = [
   />
   <div class="max-w-4xl mx-auto px-6 -mt-16 mb-24">
     <p class="text-sm text-[var(--text-muted)] text-center leading-relaxed">
-      Snyk and Semgrep are excellent for what they do &mdash; catching known vulnerabilities in dependencies and common patterns. AI-Sec catches what they can't: the architectural and logic flaws that pattern-matching tools miss. Many of our clients run both.
+      Snyk and Semgrep are excellent for known vulnerability patterns. AI-Sec catches what they can't: architectural and logic flaws. Many teams run both.
     </p>
   </div>
 
-  <!-- Pricing FAQ -->
-  <FAQ headline="Pricing questions." items={faqItems} />
+  <!-- FAQ -->
+  <FAQ headline="Questions & answers." items={faqItems} />
 
   <!-- Bottom CTA -->
-  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+  <section class="py-24 md:py-32" style="background: var(--gradient-hero)">
     <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold">Ready to find out what's in your code?</h2>
+      <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Not sure where to start?</h2>
       <p class="text-[var(--text-secondary)] mt-4 text-lg">
-        Start free with the open-source tool. Or book a 15-minute scoping call for consulting.
+        Book a 30-minute call. We'll tell you honestly what you need &mdash; even if the answer is "just use the free tool."
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-        <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="lg">View on GitHub &rarr;</Button>
-        <Button href="/contact" variant="secondary" size="lg">Book a Call</Button>
+        <a href={url('/contact')} class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium bg-white text-black hover:bg-white/90 transition-colors">
+          Book a call &rarr;
+        </a>
+        <a href="https://github.com/sergey-ko/ai-sec" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--border-hover)] transition-colors">
+          Or just clone the repo &mdash; it's free
+        </a>
       </div>
     </div>
   </section>

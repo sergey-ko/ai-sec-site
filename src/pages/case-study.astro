@@ -6,30 +6,15 @@ import Card from '@fce/shared/components/Card.astro';
 import Button from '@fce/shared/components/Button.astro';
 import Footer from '@fce/shared/components/Footer.astro';
 import FindingCard from '../components/FindingCard.astro';
+import { navLinks, footerLinks, navCta, url } from '../lib/links';
 import '../styles/theme.css';
-
-const navLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Open Source', href: '/open-source' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-];
-
-const footerLinks = [
-  { text: 'Free Scan', href: '/free-scan' },
-  { text: 'Pricing', href: '/pricing' },
-  { text: 'Case Study', href: '/case-study' },
-  { text: 'Contact', href: '/contact' },
-  { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
-];
 ---
 
 <Base
   title="91 Findings Across 108K+ GitHub Stars \u2014 AI-Sec"
   description="Real security audit case studies: maybe-finance (35K stars), Documenso (8K stars), Hoppscotch (65K stars). 91 findings including plaintext credentials, commented-out encryption, and IDORs."
 >
-  <Nav logo="AI-Sec" links={navLinks} ctaText="Get Free Scan" ctaHref="/free-scan" />
+  <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
   <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
@@ -42,7 +27,7 @@ const footerLinks = [
         We audited popular open-source projects using the same AI-powered methodology available in our free tool and consulting engagements. Here's what we found.
       </p>
       <div class="mt-8">
-        <Button href="/contact" variant="primary" size="lg">Book Your Audit &rarr;</Button>
+        <Button href={url('/contact')} variant="primary" size="lg">Book Your Audit &rarr;</Button>
       </div>
     </div>
   </section>
@@ -119,9 +104,10 @@ const footerLinks = [
         />
       </div>
 
-      <p class="text-sm text-[var(--text-muted)]">
-        Full audit report available on GitHub: <a href="https://github.com/sergey-ko/ai-sec" class="text-[var(--accent-primary)] hover:underline">github.com/sergey-ko/ai-sec</a>
-      </p>
+      <div class="flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -173,9 +159,10 @@ const footerLinks = [
         />
       </div>
 
-      <p class="text-sm text-[var(--text-muted)]">
-        Full audit report available on GitHub: <a href="https://github.com/sergey-ko/ai-sec" class="text-[var(--accent-primary)] hover:underline">github.com/sergey-ko/ai-sec</a>
-      </p>
+      <div class="flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -227,9 +214,10 @@ const footerLinks = [
         />
       </div>
 
-      <p class="text-sm text-[var(--text-muted)]">
-        Full audit report available on GitHub: <a href="https://github.com/sergey-ko/ai-sec" class="text-[var(--accent-primary)] hover:underline">github.com/sergey-ko/ai-sec</a>
-      </p>
+      <div class="flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -319,7 +307,7 @@ const footerLinks = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
         <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="lg">Try the Free Tool &rarr;</Button>
-        <Button href="/contact" variant="secondary" size="lg">Book a Call</Button>
+        <Button href={url('/contact')} variant="secondary" size="lg">Book a Call</Button>
       </div>
     </div>
   </section>

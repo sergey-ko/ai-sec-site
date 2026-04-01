@@ -1,0 +1,167 @@
+---
+/**
+ * Animated terminal that types out an AI-Sec audit and reveals results.
+ * Pure CSS animations — no JavaScript required.
+ */
+---
+
+<div class="terminal-wrapper">
+  <div class="rounded-xl border border-[var(--border)] bg-[var(--bg-tertiary)] overflow-hidden shadow-2xl shadow-black/40">
+    <!-- Title bar -->
+    <div class="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)]">
+      <span class="w-3 h-3 rounded-full bg-[#EF4444]"></span>
+      <span class="w-3 h-3 rounded-full bg-[#F59E0B]"></span>
+      <span class="w-3 h-3 rounded-full bg-[#22C55E]"></span>
+      <span class="text-xs font-mono text-[var(--text-muted)] ml-2">ai-sec audit</span>
+    </div>
+    <!-- Terminal body -->
+    <div class="p-6 font-mono text-sm leading-relaxed space-y-0">
+      <!-- Command line with typing animation -->
+      <div class="terminal-line line-0">
+        <span class="text-[var(--text-muted)]">$</span>
+        <span class="typing-text"> ai-sec audit --repo github.com/acme/webapp</span>
+        <span class="cursor">&#9608;</span>
+      </div>
+
+      <!-- Scanning phase -->
+      <div class="terminal-line line-1 mt-4">
+        <span class="text-[var(--color-opensource)]">&#10003;</span> Cloning repository...
+        <span class="text-[var(--text-muted)]">done</span>
+      </div>
+      <div class="terminal-line line-2">
+        <span class="text-[var(--color-opensource)]">&#10003;</span> Analyzing 1,247 files across 18 modules...
+        <span class="text-[var(--text-muted)]">done</span>
+      </div>
+      <div class="terminal-line line-3">
+        <span class="text-[var(--color-opensource)]">&#10003;</span> Mapping auth flows &amp; trust boundaries...
+        <span class="text-[var(--text-muted)]">done</span>
+      </div>
+      <div class="terminal-line line-4">
+        <span class="text-[var(--color-opensource)]">&#10003;</span> OWASP ASVS L2 checklist (286 controls)...
+        <span class="text-[var(--text-muted)]">done</span>
+      </div>
+      <div class="terminal-line line-5">
+        <span class="text-[var(--color-opensource)]">&#10003;</span> Cross-referencing findings...
+        <span class="text-[var(--text-muted)]">done</span>
+      </div>
+
+      <!-- Results -->
+      <div class="terminal-line line-6 mt-4">
+        <span class="text-[var(--text-muted)]">── RESULTS ──────────────────────────────</span>
+      </div>
+      <div class="terminal-line line-7">
+        <span class="text-[var(--color-error)] font-bold">&nbsp; CRITICAL &nbsp;3</span>
+        <span class="text-[var(--text-secondary)]">&nbsp; Broken auth flow, plaintext secrets</span>
+      </div>
+      <div class="terminal-line line-8">
+        <span class="text-red-400 font-bold">&nbsp; HIGH &nbsp;&nbsp;&nbsp;&nbsp; 7</span>
+        <span class="text-[var(--text-secondary)]">&nbsp; IDOR, missing access controls</span>
+      </div>
+      <div class="terminal-line line-9">
+        <span class="text-[var(--color-warning)] font-bold">&nbsp; MEDIUM &nbsp;12</span>
+        <span class="text-[var(--text-secondary)]">&nbsp; Rate limiting, session mgmt</span>
+      </div>
+      <div class="terminal-line line-10">
+        <span class="text-[var(--text-muted)] font-bold">&nbsp; LOW &nbsp;&nbsp;&nbsp;&nbsp; 5</span>
+        <span class="text-[var(--text-secondary)]">&nbsp; Informational</span>
+      </div>
+      <div class="terminal-line line-11 mt-3">
+        <span class="text-[var(--text-muted)]">&nbsp; Full report:</span>
+        <span class="text-[var(--color-opensource)]"> ./audit-report-2026-03-31.md</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .terminal-line {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  /* Typing cursor */
+  .cursor {
+    animation: blink 0.8s step-end infinite;
+    color: var(--color-opensource);
+    font-size: 0.75em;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Typing text reveal */
+  .typing-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 1.2s steps(45) 0.5s forwards;
+  }
+
+  @keyframes typing {
+    to { width: 100%; }
+  }
+
+  /* Line reveals — staggered */
+  .line-0 {
+    opacity: 1;
+    transform: none;
+  }
+
+  .line-1 { animation: reveal 0.3s ease-out 2.0s forwards; }
+  .line-2 { animation: reveal 0.3s ease-out 2.5s forwards; }
+  .line-3 { animation: reveal 0.3s ease-out 3.0s forwards; }
+  .line-4 { animation: reveal 0.3s ease-out 3.5s forwards; }
+  .line-5 { animation: reveal 0.3s ease-out 4.0s forwards; }
+
+  /* Results — slightly faster reveal */
+  .line-6  { animation: reveal 0.3s ease-out 4.8s forwards; }
+  .line-7  { animation: reveal-result 0.4s ease-out 5.2s forwards; }
+  .line-8  { animation: reveal-result 0.4s ease-out 5.5s forwards; }
+  .line-9  { animation: reveal-result 0.4s ease-out 5.8s forwards; }
+  .line-10 { animation: reveal-result 0.4s ease-out 6.1s forwards; }
+  .line-11 { animation: reveal 0.3s ease-out 6.6s forwards; }
+
+  /* Hide cursor after typing */
+  .line-0 .cursor {
+    animation: blink 0.8s step-end infinite, hide-cursor 0.1s forwards 1.8s;
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes reveal-result {
+    0% {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes hide-cursor {
+    to { opacity: 0; display: none; }
+  }
+
+  /* Subtle glow on the terminal */
+  .terminal-wrapper {
+    position: relative;
+  }
+  .terminal-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 0.75rem;
+    background: radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
