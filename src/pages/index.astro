@@ -28,7 +28,7 @@ const terminalLines = [
 
 <Base
   title="AI-Sec — AI Security from Free to Enterprise"
-  description="Open-source AI security tools, self-service platform, and AI-powered consulting. 91 findings across 3 projects with 108K+ GitHub stars."
+  description="Open-source AI security tools, self-service platform, and AI-powered consulting. 81 findings across 3 projects with 108K+ GitHub stars."
 >
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
@@ -36,7 +36,7 @@ const terminalLines = [
   <section class="min-h-[80vh] flex items-center py-24 md:py-32 bg-grid" style="background: var(--gradient-hero)">
     <div class="max-w-5xl mx-auto px-6 text-center">
       <span class="inline-block text-xs font-mono font-medium text-[var(--text-muted)] tracking-wider uppercase mb-8">
-        91 findings across 3 projects &middot; 108K+ GitHub stars
+        81 findings across 3 projects &middot; 108K+ GitHub stars
       </span>
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-[var(--text-primary)] leading-[1.1] max-w-4xl mx-auto" style="font-family: 'Instrument Serif', Georgia, serif">
         We think AI security should be free.
@@ -67,7 +67,7 @@ const terminalLines = [
     tier="opensource"
     label="Open Source"
     headline="Our gift to make AI development safer."
-    story="We believe every developer deserves access to AI security analysis. So we open-sourced our audit engine &mdash; the same technology that found 91 vulnerabilities across maybe-finance, Documenso, and Hoppscotch.<br /><br />It's not a teaser. It's not feature-gated. It runs in your IDE, analyzes your entire codebase, and finds real issues. Clone it, run it, ship safer code."
+    story="We believe every developer deserves access to AI security analysis. So we open-sourced our audit engine &mdash; the same technology that found 81 vulnerabilities across maybe-finance, Documenso, and Hoppscotch.<br /><br />It's not a teaser. It's not feature-gated. It runs in your IDE, analyzes your entire codebase, and finds real issues. Clone it, run it, ship safer code."
     features={[
       'Claude Code skill — run /audit in your IDE',
       '5 specialized agents (web, API, CI/CD, infra, mobile)',
@@ -75,7 +75,7 @@ const terminalLines = [
       'Finds ~60-70% of what a full audit catches',
       'No account, no tracking, no strings',
     ]}
-    proof="We audited 3 open-source projects with 108K+ combined GitHub stars and found 91 real vulnerabilities. The tool is real."
+    proof="We audited 3 open-source projects with 108K+ combined GitHub stars and found 81 real vulnerabilities. The tool is real."
     ctaPrimary={{ text: 'View on GitHub →', href: 'https://github.com/sergey-ko/ai-sec' }}
     ctaSecondary={{ text: 'Read the audits →', href: url('/case-study') }}
   >
@@ -269,7 +269,7 @@ const terminalLines = [
         Don't take our word for it. Read the audits.
       </h2>
       <p class="text-[var(--text-secondary)] text-center max-w-2xl mx-auto mb-12">
-        We audited 3 popular open-source projects and published the results. 91 findings total.
+        We audited 3 popular open-source projects and published the results. 81 findings total.
       </p>
       <div class="grid md:grid-cols-3 gap-6">
         <Card>
@@ -278,9 +278,9 @@ const terminalLines = [
             <span class="text-xs font-mono text-[var(--text-muted)]">35K &#9733;</span>
           </div>
           <p class="text-sm font-medium text-[var(--color-error)] mb-3">
-            Plaintext bank credentials in a personal finance app
+            OTP secrets and Plaid tokens stored in plaintext
           </p>
-          <p class="text-xs font-mono text-[var(--text-muted)]">4 critical &middot; 9 high</p>
+          <p class="text-xs font-mono text-[var(--text-muted)]">5 critical &middot; 6 high</p>
         </Card>
         <Card>
           <div class="flex items-center justify-between mb-4">
@@ -288,9 +288,9 @@ const terminalLines = [
             <span class="text-xs font-mono text-[var(--text-muted)]">8K &#9733;</span>
           </div>
           <p class="text-sm font-medium text-[var(--color-error)] mb-3">
-            Encryption validation commented out in e-signing platform
+            Encryption key validation commented out in production
           </p>
-          <p class="text-xs font-mono text-[var(--text-muted)]">2 critical &middot; 5 high</p>
+          <p class="text-xs font-mono text-[var(--text-muted)]">1 critical &middot; 3 high</p>
         </Card>
         <Card>
           <div class="flex items-center justify-between mb-4">
@@ -298,9 +298,9 @@ const terminalLines = [
             <span class="text-xs font-mono text-[var(--text-muted)]">65K &#9733;</span>
           </div>
           <p class="text-sm font-medium text-[var(--color-error)] mb-3">
-            IDOR lets any user read other users' saved API keys
+            IDOR + unauthenticated infrastructure takeover
           </p>
-          <p class="text-xs font-mono text-[var(--text-muted)]">3 critical &middot; 7 high</p>
+          <p class="text-xs font-mono text-[var(--text-muted)]">3 high &middot; 3 medium</p>
         </Card>
       </div>
       <div class="text-center mt-10">

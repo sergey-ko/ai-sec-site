@@ -34,7 +34,7 @@ const cloneLines = [
   '<span class="text-[var(--accent-primary)]">&#10003;</span> OWASP Top 10 checks complete',
   '',
   '<span class="text-[var(--text-muted)]">── FINDINGS ─────────────────────────────────</span>',
-  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  2</span>   Plaintext credentials in config',
+  '<span class="text-[var(--color-error)] font-bold">  CRITICAL  2</span>   OTP secrets + Plaid tokens in plaintext',
   '<span class="text-red-400 font-bold">  HIGH      5</span>   Broken access control on API',
   '<span class="text-[var(--color-warning)] font-bold">  MEDIUM    8</span>   Missing input validation',
   '',
@@ -44,7 +44,7 @@ const cloneLines = [
 const auditExampleLines = [
   '<span class="text-[var(--text-muted)]"># Real finding from maybe-finance (35K stars) audit:</span>',
   '',
-  '<span class="text-[var(--color-error)] font-bold">CRITICAL</span> <span class="font-bold">Plaintext Bank Credentials in Configuration</span>',
+  '<span class="text-[var(--color-error)] font-bold">CRITICAL</span> <span class="font-bold">OTP Secret Stored in Plaintext in Database</span>',
   '',
   '  <span class="text-[var(--text-muted)]">CVSS:</span>  9.1  |  <span class="text-[var(--text-muted)]">OWASP:</span> A02:2021  |  <span class="text-[var(--text-muted)]">CWE:</span> CWE-312',
   '',
@@ -80,7 +80,7 @@ const auditExampleLines = [
         <Button href="#getting-started" variant="secondary" size="lg">Get Started</Button>
       </div>
       <p class="text-sm text-[var(--text-muted)] mt-6">
-        91 findings across 3 projects with 108K+ GitHub stars. This is the same methodology.
+        81 findings across 3 projects with 108K+ GitHub stars. This is the same methodology.
       </p>
     </div>
   </section>
@@ -185,21 +185,21 @@ const auditExampleLines = [
         <div class="space-y-6">
           <FindingCard
             severity="CRITICAL"
-            title="IDOR: Any User Can Read Other Users' API Keys"
-            cvss="8.6"
-            owasp="A01:2021"
-            cwe="CWE-639"
-            description="Hoppscotch (65K stars): The /api/user-environments/:id endpoint returns saved API keys without verifying ownership. An attacker can enumerate environment IDs to steal production secrets and auth tokens."
-            fix="Add ownership validation: verify req.user.id matches the environment's ownerUid before returning data."
+            title="OTP Secret Stored in Plaintext in Database"
+            cvss="9.1"
+            owasp="V2.8.4"
+            cwe="CWE-312"
+            description="maybe-finance (35K stars): The otp_secret column is stored as plaintext with no encryption. An attacker with database access can extract OTP secrets and generate valid TOTP codes, bypassing MFA for all users."
+            fix="Add encrypts :otp_secret, deterministic: false to the User model. Rotate all existing secrets after deployment."
           />
           <FindingCard
-            severity="HIGH"
-            title="Encryption Validation Commented Out"
-            cvss="7.4"
-            owasp="A02:2021"
+            severity="CRITICAL"
+            title="Encryption Key Validation Commented Out in Production"
+            cvss="8.8"
+            owasp="V8.3.1"
             cwe="CWE-327"
-            description="Documenso (8K stars): The document signing flow has encryption validation logic that was commented out during development and never re-enabled. Signed documents can be tampered with without detection."
-            fix="Re-enable encryption validation in the signing flow. Add integration tests to ensure validation cannot be silently disabled."
+            description="Documenso (8K stars): The entire encryption key validation block is commented out. The application can start without encryption keys. Webhook endpoints can be spoofed without the secondary key."
+            fix="Uncomment and enforce the validation. Add a startup check that fails hard if keys are missing or default."
           />
         </div>
       </div>

@@ -11,20 +11,20 @@ import '../styles/theme.css';
 ---
 
 <Base
-  title="91 Findings Across 108K+ GitHub Stars \u2014 AI-Sec"
-  description="Real security audit case studies: maybe-finance (35K stars), Documenso (8K stars), Hoppscotch (65K stars). 91 findings including plaintext credentials, commented-out encryption, and IDORs."
+  title="81 Findings Across 108K+ GitHub Stars — AI-Sec"
+  description="Real security audit case studies: maybe-finance (35K stars), Documenso (8K stars), Hoppscotch (65K stars). 81 findings including plaintext credentials, commented-out encryption, and IDORs."
 >
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
-  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+  <section class="py-24 md:py-32" style="background: var(--gradient-hero)">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <Badge text="Public Audit Case Studies" class="mb-8" />
       <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight max-w-4xl mx-auto">
-        91 findings across 3 projects<br />with 108K+ GitHub stars.
+        81 findings across 3 projects<br />with 108K+ GitHub stars.
       </h1>
       <p class="text-lg sm:text-xl text-[var(--text-secondary)] mt-6 max-w-3xl mx-auto leading-relaxed">
-        We audited popular open-source projects using the same AI-powered methodology available in our free tool and consulting engagements. Here's what we found.
+        We audited popular open-source projects using the same AI-powered methodology available in our free tool and consulting engagements. Full reports published on GitHub.
       </p>
       <div class="mt-8">
         <Button href={url('/contact')} variant="primary" size="lg">Book Your Audit &rarr;</Button>
@@ -37,12 +37,12 @@ import '../styles/theme.css';
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">91</p>
+          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">81</p>
           <p class="text-sm text-[var(--text-muted)] mt-2">Total findings</p>
         </div>
         <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">3</p>
-          <p class="text-sm text-[var(--text-muted)] mt-2">Projects audited</p>
+          <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">6</p>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Audits (web + CI/CD)</p>
         </div>
         <div class="text-center p-6 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
           <p class="text-4xl md:text-5xl font-bold text-[var(--accent-primary)]">108K+</p>
@@ -74,39 +74,43 @@ import '../styles/theme.css';
             <p class="text-2xl font-bold text-[var(--accent-primary)]">Ruby / Rails</p>
             <p class="text-xs text-[var(--text-muted)]">Stack</p>
           </div>
+          <div class="text-center">
+            <p class="text-2xl font-bold text-[var(--accent-primary)]">25</p>
+            <p class="text-xs text-[var(--text-muted)]">Web findings</p>
+          </div>
         </div>
       </div>
 
       <div class="mb-8">
         <p class="text-[var(--text-secondary)] text-lg leading-relaxed max-w-3xl">
-          maybe-finance is a popular open-source personal finance app that connects to bank accounts and aggregates financial data. Our audit revealed critical credential storage issues and access control flaws in an application that handles some of the most sensitive data users have: their bank accounts.
+          maybe-finance is a popular open-source personal finance app that connects to bank accounts via Plaid and aggregates financial data. Our audit revealed critical credential storage issues in an application handling some of the most sensitive data users have.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <FindingCard
           severity="CRITICAL"
-          title="Plaintext Bank Credentials in Configuration"
+          title="OTP Secret Stored in Plaintext in Database"
           cvss="9.1"
-          owasp="A02:2021"
+          owasp="V2.8.4"
           cwe="CWE-312"
-          description="Bank account credentials including routing numbers, account numbers, and API keys for financial providers are stored in plaintext configuration files accessible to the application runtime. No encryption at rest, no secrets management."
-          fix="Move credentials to a secrets manager (Vault, AWS Secrets Manager). Never store financial credentials in config files, environment variables, or source code."
+          description="The otp_secret column in the users table is stored as plaintext with no encryption. The User model does not use Rails' encrypts directive. Backup codes are also stored as plaintext arrays. An attacker with database access can extract OTP secrets and generate valid TOTP codes, completely bypassing MFA for all users."
+          fix="Add encrypts :otp_secret, deterministic: false to the User model. Encrypt otp_backup_codes. Rotate all existing secrets after deploying the fix."
         />
         <FindingCard
-          severity="HIGH"
-          title="Missing Access Control on Financial Data Endpoints"
-          cvss="7.5"
-          owasp="A01:2021"
-          cwe="CWE-862"
-          description="Several API endpoints that return financial transaction data and account balances do not properly verify that the requesting user owns the account being queried. An authenticated user could potentially access other users' financial data."
-          fix="Implement consistent ownership validation on all financial data endpoints. Verify account.user_id === current_user.id before returning any data."
+          severity="CRITICAL"
+          title="Plaid Access Tokens Conditionally Encrypted — Plaintext in Self-Hosted"
+          cvss="9.1"
+          owasp="V8.3.4"
+          cwe="CWE-312"
+          description="Plaid token encryption is conditional and only activates when active_record_encryption credentials are present. Self-hosted instances generate keys from SECRET_KEY_BASE but write them to a different config path, causing the check to evaluate to false. Plaid access tokens grant full read access to bank accounts, transactions, and balances."
+          fix="Remove the conditional encryption check — always encrypt. Provide migration tooling to encrypt existing plaintext tokens."
         />
       </div>
 
       <div class="flex flex-wrap gap-4 text-sm">
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report (25 findings) &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/maybe-finance-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report (9 findings) &rarr;</a>
       </div>
     </div>
   </section>
@@ -129,39 +133,43 @@ import '../styles/theme.css';
             <p class="text-2xl font-bold text-[var(--accent-primary)]">TypeScript / Next.js</p>
             <p class="text-xs text-[var(--text-muted)]">Stack</p>
           </div>
+          <div class="text-center">
+            <p class="text-2xl font-bold text-[var(--accent-primary)]">13</p>
+            <p class="text-xs text-[var(--text-muted)]">Web findings</p>
+          </div>
         </div>
       </div>
 
       <div class="mb-8">
         <p class="text-[var(--text-secondary)] text-lg leading-relaxed max-w-3xl">
-          Documenso is an open-source alternative to DocuSign for e-signing documents. The core value proposition is trust and legal validity of signed documents. Our audit found that the very mechanism ensuring document integrity had been disabled.
+          Documenso is an open-source alternative to DocuSign for e-signing documents. The core value proposition is trust and legal validity. Our audit found that the mechanism ensuring document integrity had been disabled, and webhook security was fundamentally broken.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <FindingCard
           severity="CRITICAL"
-          title="Encryption Validation Commented Out in Signing Flow"
+          title="Encryption Key Validation Commented Out in Production"
           cvss="8.8"
-          owasp="A02:2021"
+          owasp="V8.3.1"
           cwe="CWE-327"
-          description="The document signing flow contains encryption validation logic that was commented out during development and never re-enabled. This means signed documents can be tampered with after signing without detection, undermining the entire legal validity of e-signatures on the platform."
-          fix="Re-enable encryption validation in the signing flow. Add integration tests that verify validation is active and cannot be silently disabled. Consider a CI check that flags commented-out security code."
+          description="The entire encryption key validation block in packages/lib/constants/crypto.ts is commented out. The application can start without encryption keys. There is no guard against weak/default keys. Primary and secondary keys can be identical. The secondary key is used for webhook signature verification — without it, internal webhook endpoints can be spoofed."
+          fix="Uncomment and enforce the validation. Add a startup check that fails hard if keys are missing or default. Use environment validation (e.g., Zod) at bootstrap."
         />
         <FindingCard
           severity="HIGH"
-          title="Insufficient Document Access Controls"
-          cvss="7.2"
-          owasp="A01:2021"
-          cwe="CWE-639"
-          description="Document sharing links use predictable identifiers. While authentication is required, the authorization check does not properly verify the user was invited as a signer or viewer. Users with valid accounts can access documents they weren't meant to see."
-          fix="Replace predictable document IDs with cryptographically random tokens for sharing. Verify the requesting user is explicitly listed as a signer or viewer before granting access."
+          title="Webhook Secret Sent as Plaintext Header (No HMAC)"
+          cvss="7.5"
+          owasp="V13.3.1"
+          cwe="CWE-345"
+          description="Webhook secrets are transmitted as static plaintext headers rather than HMAC signatures. The secret is sent in every request as a static value, vulnerable to MITM, logging, or proxy capture. An empty string is sent when no secret is configured. Consumers cannot verify payload integrity. For an e-signing platform, signing completion events could be forged."
+          fix="Replace X-Documenso-Secret with X-Documenso-Signature: sha256=HMAC(secret, body). Provide client libraries for signature verification."
         />
       </div>
 
       <div class="flex flex-wrap gap-4 text-sm">
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report (13 findings) &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/documenso-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report (13 findings) &rarr;</a>
       </div>
     </div>
   </section>
@@ -184,39 +192,43 @@ import '../styles/theme.css';
             <p class="text-2xl font-bold text-[var(--accent-primary)]">TypeScript / Vue</p>
             <p class="text-xs text-[var(--text-muted)]">Stack</p>
           </div>
+          <div class="text-center">
+            <p class="text-2xl font-bold text-[var(--accent-primary)]">11</p>
+            <p class="text-xs text-[var(--text-muted)]">Web findings</p>
+          </div>
         </div>
       </div>
 
       <div class="mb-8">
         <p class="text-[var(--text-secondary)] text-lg leading-relaxed max-w-3xl">
-          Hoppscotch is one of the most popular open-source API development tools. Users save API requests with authentication tokens, production API keys, and secrets. Our audit found that these saved credentials were accessible to other users through an IDOR vulnerability.
+          Hoppscotch is one of the most popular open-source API development tools. Users save API requests with authentication tokens and production secrets. Our audit found authorization bypasses and a critical infrastructure takeover vector.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <FindingCard
-          severity="CRITICAL"
-          title="IDOR: Any User Can Read Other Users' Saved API Keys"
-          cvss="8.6"
-          owasp="A01:2021"
+          severity="HIGH"
+          title="IDOR in User History — Star/Delete Operations"
+          cvss="7.5"
+          owasp="V4.2.1"
           cwe="CWE-639"
-          description="The user environments API endpoint returns saved API keys and authentication tokens for any environment ID without verifying that the requesting user owns that environment. An attacker can enumerate environment IDs to access production secrets, API keys, and auth tokens stored by other users."
-          fix="Add ownership validation: verify req.user.id matches the environment's ownerUid before returning data. Apply the same pattern to all user-scoped resources."
+          description="The toggleHistoryStarStatus and removeRequestFromHistory methods accept a user UID parameter but never use it to filter queries. Operations query only by history entry ID, meaning any authenticated user can modify or delete any other user's history entries. History contains full API request data including auth tokens and API keys."
+          fix="Add userUid to all where clauses: where: { id: id, userUid: uid }. Apply the same pattern to all user-scoped resources."
         />
         <FindingCard
           severity="HIGH"
-          title="GraphQL Query Depth Not Limited"
-          cvss="7.5"
-          owasp="A04:2021"
-          cwe="CWE-400"
-          description="The GraphQL API does not limit query depth or complexity. An attacker can craft deeply nested queries that cause exponential resource consumption on the server, leading to denial of service. This affects all users of the shared platform."
-          fix="Implement query depth limiting (max 10-15 levels) and query complexity analysis. Use graphql-depth-limit or similar middleware. Rate-limit by query complexity score."
+          title="Unauthenticated Onboarding Allows Full Infrastructure Reconfiguration"
+          cvss="8.1"
+          owasp="V4.1.1"
+          cwe="CWE-306"
+          description="The POST /v1/onboarding/config endpoint allows complete reconfiguration without authentication. The only guard is checking usersCount === 0. On fresh deployments, anyone reaching the backend can configure OAuth with attacker-controlled credentials, set SMTP to attacker servers, and take over the instance. A race condition between docker compose up and first admin creation."
+          fix="Add IP-based restrictions. Implement a setup token mechanism. Require DATA_ENCRYPTION_KEY as proof of server access."
         />
       </div>
 
       <div class="flex flex-wrap gap-4 text-sm">
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report &rarr;</a>
-        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-web-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">Web audit report (11 findings) &rarr;</a>
+        <a href="https://github.com/sergey-ko/ai-sec/blob/main/examples/hoppscotch-cicd-audit.md" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-primary)] hover:underline">CI/CD audit report (10 findings) &rarr;</a>
       </div>
     </div>
   </section>
@@ -299,11 +311,11 @@ import '../styles/theme.css';
   </section>
 
   <!-- Bottom CTA -->
-  <section class="py-24 md:py-32" style={`background: var(--gradient-hero)`}>
+  <section class="py-24 md:py-32" style="background: var(--gradient-hero)">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-bold">Your codebase deserves the same analysis.</h2>
       <p class="text-[var(--text-secondary)] mt-4 text-lg">
-        Start free with the open-source tool, or book a call to scope your audit. Same methodology that found 91 findings across 108K+ GitHub stars.
+        Start free with the open-source tool, or book a call to scope your audit. Same methodology that found 81 findings across 108K+ GitHub stars.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
         <Button href="https://github.com/sergey-ko/ai-sec" variant="primary" size="lg">Try the Free Tool &rarr;</Button>
