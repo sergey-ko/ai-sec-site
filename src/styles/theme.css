@@ -98,7 +98,7 @@
 /* Flywheel spin animation */
 .flywheel-spin {
   animation: spin 12s linear infinite;
-  transform-origin: 250px 250px;
+  transform-origin: 260px 260px;
 }
 
 @keyframes spin {

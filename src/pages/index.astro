@@ -195,68 +195,59 @@ const terminalLines = [
       </p>
       <!-- Flywheel SVG -->
       <div class="mt-12 flex justify-center">
-        <svg viewBox="0 0 500 500" width="420" height="420" class="flywheel-svg">
-          <!-- Circular track -->
-          <circle cx="250" cy="250" r="170" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.5" />
-
-          <!-- Animated spinning arc -->
-          <circle cx="250" cy="250" r="170" fill="none" stroke="url(#flywheel-gradient)" stroke-width="2" stroke-dasharray="180 888" stroke-linecap="round" class="flywheel-spin" />
-
-          <!-- Gradient for spinning arc -->
+        <svg viewBox="0 0 520 520" width="480" height="480" class="flywheel-svg">
           <defs>
             <linearGradient id="flywheel-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stop-color="var(--color-opensource)" />
               <stop offset="50%" stop-color="var(--color-saas)" />
               <stop offset="100%" stop-color="var(--color-consulting)" />
             </linearGradient>
+            <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+              <polygon points="0 0, 10 4, 0 8" fill="var(--text-secondary)" />
+            </marker>
           </defs>
+
+          <!-- Circular track -->
+          <circle cx="260" cy="260" r="160" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.3" />
+
+          <!-- Animated spinning arc -->
+          <circle cx="260" cy="260" r="160" fill="none" stroke="url(#flywheel-gradient)" stroke-width="2.5" stroke-dasharray="200 805" stroke-linecap="round" class="flywheel-spin" />
+
+          <!-- Flow arrows (curved, between nodes) -->
+          <path d="M 305 110 Q 390 135 400 205" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" opacity="0.5" marker-end="url(#arrowhead)" />
+          <path d="M 405 315 Q 385 390 310 415" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" opacity="0.5" marker-end="url(#arrowhead)" />
+          <path d="M 215 415 Q 135 390 115 315" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" opacity="0.5" marker-end="url(#arrowhead)" />
+          <path d="M 115 205 Q 135 135 210 108" fill="none" stroke="var(--text-secondary)" stroke-width="1.5" opacity="0.5" marker-end="url(#arrowhead)" />
 
           <!-- Node: Open Source (top) -->
           <g class="flywheel-node">
-            <circle cx="250" cy="80" r="40" fill="var(--bg-secondary)" stroke="var(--color-opensource)" stroke-width="1.5" />
-            <text x="250" y="76" text-anchor="middle" fill="var(--color-opensource)" font-size="11" font-family="monospace" font-weight="600">Open</text>
-            <text x="250" y="90" text-anchor="middle" fill="var(--color-opensource)" font-size="11" font-family="monospace" font-weight="600">Source</text>
+            <circle cx="260" cy="100" r="52" fill="var(--bg-secondary)" stroke="var(--color-opensource)" stroke-width="2" />
+            <text x="260" y="95" text-anchor="middle" fill="var(--color-opensource)" font-size="14" font-family="Inter, sans-serif" font-weight="600">Open</text>
+            <text x="260" y="113" text-anchor="middle" fill="var(--color-opensource)" font-size="14" font-family="Inter, sans-serif" font-weight="600">Source</text>
           </g>
 
           <!-- Node: Platform (right) -->
           <g class="flywheel-node">
-            <circle cx="420" cy="250" r="40" fill="var(--bg-secondary)" stroke="var(--color-saas)" stroke-width="1.5" />
-            <text x="420" y="253" text-anchor="middle" fill="var(--color-saas)" font-size="11" font-family="monospace" font-weight="600">Platform</text>
+            <circle cx="420" cy="260" r="52" fill="var(--bg-secondary)" stroke="var(--color-saas)" stroke-width="2" />
+            <text x="420" y="264" text-anchor="middle" fill="var(--color-saas)" font-size="14" font-family="Inter, sans-serif" font-weight="600">Platform</text>
           </g>
 
           <!-- Node: Consulting (bottom) -->
           <g class="flywheel-node">
-            <circle cx="250" cy="420" r="40" fill="var(--bg-secondary)" stroke="var(--color-consulting)" stroke-width="1.5" />
-            <text x="250" y="416" text-anchor="middle" fill="var(--color-consulting)" font-size="11" font-family="monospace" font-weight="600">Consul-</text>
-            <text x="250" y="430" text-anchor="middle" fill="var(--color-consulting)" font-size="11" font-family="monospace" font-weight="600">ting</text>
+            <circle cx="260" cy="420" r="52" fill="var(--bg-secondary)" stroke="var(--color-consulting)" stroke-width="2" />
+            <text x="260" y="424" text-anchor="middle" fill="var(--color-consulting)" font-size="14" font-family="Inter, sans-serif" font-weight="600">Consulting</text>
           </g>
 
           <!-- Node: Case Studies (left) -->
           <g class="flywheel-node">
-            <circle cx="80" cy="250" r="40" fill="var(--bg-secondary)" stroke="var(--text-muted)" stroke-width="1" />
-            <text x="80" y="246" text-anchor="middle" fill="var(--text-secondary)" font-size="10" font-family="monospace">Case</text>
-            <text x="80" y="260" text-anchor="middle" fill="var(--text-secondary)" font-size="10" font-family="monospace">Studies</text>
+            <circle cx="100" cy="260" r="52" fill="var(--bg-secondary)" stroke="var(--color-opensource)" stroke-width="1.5" opacity="0.7" />
+            <text x="100" y="254" text-anchor="middle" fill="var(--text-primary)" font-size="14" font-family="Inter, sans-serif" font-weight="500">Case</text>
+            <text x="100" y="272" text-anchor="middle" fill="var(--text-primary)" font-size="14" font-family="Inter, sans-serif" font-weight="500">Studies</text>
           </g>
 
-          <!-- Flow arrows (between nodes, along the circle) -->
-          <!-- Top → Right -->
-          <path d="M 285 90 Q 370 120 400 210" fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.4" marker-end="url(#arrowhead)" />
-          <!-- Right → Bottom -->
-          <path d="M 410 290 Q 380 370 290 410" fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.4" marker-end="url(#arrowhead)" />
-          <!-- Bottom → Left -->
-          <path d="M 210 410 Q 130 380 95 290" fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.4" marker-end="url(#arrowhead)" />
-          <!-- Left → Top -->
-          <path d="M 90 210 Q 120 130 215 92" fill="none" stroke="var(--text-muted)" stroke-width="1" opacity="0.4" marker-end="url(#arrowhead)" />
-
-          <defs>
-            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto" fill="var(--text-muted)" opacity="0.6">
-              <polygon points="0 0, 8 3, 0 6" />
-            </marker>
-          </defs>
-
           <!-- Center label -->
-          <text x="250" y="245" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="monospace" opacity="0.6">everyone</text>
-          <text x="250" y="260" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-family="monospace" opacity="0.6">gets safer</text>
+          <text x="260" y="255" text-anchor="middle" fill="var(--text-secondary)" font-size="13" font-family="Inter, sans-serif" font-weight="500" opacity="0.8">everyone</text>
+          <text x="260" y="273" text-anchor="middle" fill="var(--text-secondary)" font-size="13" font-family="Inter, sans-serif" font-weight="500" opacity="0.8">gets safer</text>
         </svg>
       </div>
     </div>
