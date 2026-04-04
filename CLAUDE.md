@@ -27,7 +27,7 @@ GitHub Pages via GitHub Actions (.github/workflows/deploy.yml). Deploys on push 
 2. `/free-scan` - Free scan form for public repos
 3. `/open-source` - Open-source tools (CLI, GitHub Action, Claude Code skill)
 4. `/pricing` - 3-tier consulting + self-service coming soon
-5. `/case-study` - FCE audit case study (64+ findings)
+5. `/case-study` - Regulated exchange audit case study (64+ findings)
 6. `/contact` - Calendly embed + contact form
 
 ## Spec
