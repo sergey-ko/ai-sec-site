@@ -23,12 +23,21 @@ GitHub Pages via GitHub Actions (.github/workflows/deploy.yml). Deploys on push 
 
 ## Pages
 
-1. `/` - Homepage (hero, problem, how-it-works, comparison, proof, pricing, FAQ, CTA)
-2. `/free-scan` - Free scan form for public repos
-3. `/open-source` - Open-source tools (CLI, GitHub Action, Claude Code skill)
-4. `/pricing` - 3-tier consulting + self-service coming soon
-5. `/case-study` - Regulated exchange audit case study (64+ findings)
-6. `/contact` - Calendly embed + contact form
+1. `/` - Homepage (Pyramid narrative: hero → 3 tier sections → flywheel → proof → founder → CTA)
+2. `/free-scan` - SaaS platform waitlist (not an active scan — SaaS is wave 2)
+3. `/open-source` - Open-source tools (Claude Code skill, 6 agents, examples)
+4. `/pricing` - 3-col pricing (Free / $299mo coming soon / Consulting from $3,500) + consulting detail tiers
+5. `/case-study` - 3 public audits with 98 verified findings across 108K+ GitHub stars
+6. `/contact` - Calendly embed (skaskapro/30min) + contact form
+
+## Narrative
+
+The site tells a 3-tier "Pyramid" story:
+- **Open Source** (green) — gift to the ecosystem, real tool, ~60-70% coverage
+- **SaaS** (violet) — coming soon, $299/mo, multi-step hardened workflows
+- **Consulting** (blue) — from $3,500, AI-powered red team + expert review
+
+Tier accent colors are used consistently across all pages.
 
 ## Spec
 
