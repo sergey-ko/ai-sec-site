@@ -56,7 +56,13 @@ const faqItems = [
 <Base
   title="Pricing — AI-Sec"
   description="Free open-source tool, $299/mo continuous platform (coming soon), consulting from $3,500. AI security at every scale."
+  ogImage="https://ai-sec.pro/og-pricing.png"
+  canonicalUrl="https://ai-sec.pro/pricing"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->

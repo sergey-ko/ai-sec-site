@@ -62,7 +62,13 @@ const auditExampleLines = [
 <Base
   title="Open-Source Security Tool \u2014 AI-Sec"
   description="Free, open-source AI security audit tool. Clone the repo, run /audit, get findings. 5 specialized agents for web apps, APIs, CI/CD, infrastructure, and mobile."
+  ogImage="https://ai-sec.pro/og-home.png"
+  canonicalUrl="https://ai-sec.pro/open-source"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->

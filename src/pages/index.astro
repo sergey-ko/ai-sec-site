@@ -29,7 +29,13 @@ const terminalLines = [
 <Base
   title="AI-Sec — AI Security from Free to Enterprise"
   description="Open-source AI security tools, self-service platform, and AI-powered consulting. 98 findings across 3 projects with 108K+ GitHub stars."
+  ogImage="https://ai-sec.pro/og-home.png"
+  canonicalUrl="https://ai-sec.pro/"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->

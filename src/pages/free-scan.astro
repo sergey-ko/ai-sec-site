@@ -11,7 +11,13 @@ import '../styles/theme.css';
 <Base
   title="AI-Sec Platform — Coming Soon"
   description="Self-service AI security platform with multi-step audit workflows, attack path chaining, and continuous monitoring. Join the waitlist."
+  ogImage="https://ai-sec.pro/og-home.png"
+  canonicalUrl="https://ai-sec.pro/free-scan"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->

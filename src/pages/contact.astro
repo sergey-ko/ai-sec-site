@@ -11,7 +11,13 @@ import '../styles/theme.css';
 <Base
   title="Book a Call \u2014 AI-Sec"
   description="Book a 30-minute call to scope your security audit. No sales pitch \u2014 just guidance on securing your codebase."
+  ogImage="https://ai-sec.pro/og-home.png"
+  canonicalUrl="https://ai-sec.pro/contact"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
@@ -82,7 +88,7 @@ import '../styles/theme.css';
         <div class="border-t border-[var(--border)] pt-8">
           <h3 class="font-semibold mb-2">Prefer email?</h3>
           <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
-            Reach us at <a href="mailto:security@fce.global" class="text-[var(--accent-primary)] hover:underline">security@fce.global</a>. We respond within 24 hours on business days.
+            Reach us at <a href="mailto:sergey@ai-sec.pro" class="text-[var(--accent-primary)] hover:underline">sergey@ai-sec.pro</a>. We respond within 24 hours on business days.
           </p>
         </div>
 

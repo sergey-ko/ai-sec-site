@@ -13,7 +13,13 @@ import '../styles/theme.css';
 <Base
   title="98 Findings Across 108K+ GitHub Stars — AI-Sec"
   description="Real security audit case studies: maybe-finance (35K stars), Documenso (8K stars), Hoppscotch (65K stars). 98 findings including plaintext credentials, commented-out encryption, and IDORs."
+  ogImage="https://ai-sec.pro/og-home.png"
+  canonicalUrl="https://ai-sec.pro/case-study"
 >
+  <Fragment slot="head">
+    <meta name="twitter:site" content="@sergeyk0" />
+    <meta name="twitter:creator" content="@sergeyk0" />
+  </Fragment>
   <Nav logo="AI-Sec" homeHref={url('/')} links={navLinks} ctaText={navCta.text} ctaHref={navCta.href} />
 
   <!-- Hero -->
