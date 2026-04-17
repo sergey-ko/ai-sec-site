@@ -28,4 +28,8 @@ export const footerLinks = [
   { text: 'Case Studies', href: url('/case-study') },
   { text: 'Contact', href: url('/contact') },
   { text: 'GitHub', href: 'https://github.com/sergey-ko/ai-sec' },
+  { text: 'Twitter', href: 'https://twitter.com/sergeyk0' },
+  { text: 'LinkedIn', href: 'https://linkedin.com/in/skovalev' },
+  { text: 'YouTube', href: 'https://youtube.com/@skovalev' },
+  { text: 'Instagram', href: 'https://instagram.com/skaskapro' },
 ];
